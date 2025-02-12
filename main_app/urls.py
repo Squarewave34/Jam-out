@@ -13,6 +13,7 @@ urlpatterns = [
   path('gameJams/create', views.GameJamCreate.as_view(), name='game-jam-create'),
   path('gameJams/<int:pk>/update/', views.GameJamUpdate.as_view(), name='game-jam-update'),
   path('gameJams/<int:pk>/delete/', views.GameJamDelete.as_view(), name='game-jam-delete'),
+  path('roles/<int:game_jam_id>/', views.allRoles, name='all-roles'),
 
   path('threads/', views.threads, name='threads'),
 

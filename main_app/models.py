@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 # refs:
   # ImageField: https://www.geeksforgeeks.org/imagefield-django-models/
 
@@ -94,7 +95,8 @@ class Game_jam(models.Model):
   status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
   technology = models.TextField()
   # game 
-  start_date = models.DateField()
+  # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
+  start_date = models.DateField(("Date"), default=date.today)
   end_date = models.DateField()
 
   def __str__(self):
@@ -113,7 +115,7 @@ class Role(models.Model):
 
 class Dev_log(models.Model):
   title = models.CharField(max_length=200)
-  date = models.DateField()
+  date = models.DateField(("Date"), default=date.today)
   images = models.ImageField()
   description = models.TextField()
   # links
@@ -123,7 +125,7 @@ class Dev_log(models.Model):
 
 class Thread(models.Model):
   title = models.CharField(max_length=200)
-  date = models.DateField()
+  date = models.DateField(("Date"), default=date.today)
   images = models.ImageField()
   description = models.TextField()
   # likes
@@ -134,7 +136,7 @@ class Thread(models.Model):
 
 class Comment(models.Model):
   description = models.TextField()
-  date = models.DateField()
+  date = models.DateField(("Date"), default=date.today)
   images = models.ImageField()
   likes = models.IntegerField(default=0)
   # user id
