@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <h1>Game jams</h1>
+  <a href="{% url 'game-jam-create' %}">create a game jam</a>
+  <br>
+  <br>
+  {% for game_jam in game_jams %}
+    <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a>
+    <br>
+    <br>
+  {% endfor %}
+{% endblock %}

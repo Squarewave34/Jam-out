@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Game_jam, Roles, Dev_logs, Thread, Comments
+from .models import Game_jam, Role, Dev_log, Thread, Comment
 
 admin.site.register(Game_jam)
-admin.site.register(Roles)
-admin.site.register(Dev_logs)
+admin.site.register(Role)
+admin.site.register(Dev_log)
 admin.site.register(Thread)
-admin.site.register(Comments)
+admin.site.register(Comment)

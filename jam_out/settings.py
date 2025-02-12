@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'jam_out.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Cases',
+        'NAME': 'jamout',
         'USER': 'postgres',
         'PASSWORD': 'c.mell33p',
         'HOST': 'localhost',

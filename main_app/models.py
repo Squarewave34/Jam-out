@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 # refs:
   # ImageField: https://www.geeksforgeeks.org/imagefield-django-models/
 
@@ -84,55 +85,58 @@ STATUS = (
 
 # Create your models here.
 class Game_jam(models.Model):
-  name = models.CharField(max_length=200),
-  hosting = models.CharField(max_length=100),
-  description = models.TextField(),
-  Game_genre = models.CharField(choices=GENRE, default=GENRE[0][0])
-  application_duration = models.DateField(),
-  monetization = models.BooleanField(),
+  name = models.CharField(max_length=200)
+  hosting = models.CharField(max_length=100)
+  description = models.TextField()
+  Game_genre = models.CharField(max_length=100, choices=GENRE, default=GENRE[0][0])
+  application_duration = models.DateField()
+  monetization = models.BooleanField()
   status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
-  technology = models.TextField(),
+  technology = models.TextField()
   # game 
-  start_date = models.DateField(),
+  start_date = models.DateField()
   end_date = models.DateField()
 
   def __str__(self):
     return self.name
+  
+  def get_absolute_url(self):
+    return reverse('game-jam-details', kwargs={'game_jam_id': self.id})
 
-class Roles(models.Model):
-  name = models.CharField(max_length=50),
+class Role(models.Model):
+  name = models.CharField(max_length=50)
   open = models.BooleanField()
   game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
 
   def __str__(self):
     return self.name
 
-class Dev_logs(models.Model):
-  title = models.CharField(max_length=200),
+class Dev_log(models.Model):
+  title = models.CharField(max_length=200)
   date = models.DateField()
   images = models.ImageField()
-  description = models.TextField(),
+  description = models.TextField()
   # links
   # user id
   def __str__(self):
     return self.title
 
 class Thread(models.Model):
-  title = models.CharField(max_length=200),
-  date = models.DateField(),
+  title = models.CharField(max_length=200)
+  date = models.DateField()
   images = models.ImageField()
-  description = models.TextField(),
+  description = models.TextField()
   # likes
   open = models.BooleanField()
 
   def __str__(self):
     return self.title
 
-class Comments(models.Model):
-  description = models.TextField(),
-  date = models.DateField(),
+class Comment(models.Model):
+  description = models.TextField()
+  date = models.DateField()
   images = models.ImageField()
   likes = models.IntegerField(default=0)
   # user id
-  solution = models.BooleanField(),
+  solution = models.BooleanField()
   # thread id
