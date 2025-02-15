@@ -118,6 +118,7 @@ class Dev_log(models.Model):
   date = models.DateField(("Date"), default=date.today)
   images = models.ImageField()
   description = models.TextField()
+  game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
   # links
   # user id
   def __str__(self):

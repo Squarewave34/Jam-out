@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <h1>Dev logs</h1>
+  <a href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
+  <br>
+  <br>
+  {% for dev_log in dev_logs %}
+    {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
+    <a href="{% url 'dev-log-details' game_jam dev_log.id %}">{{dev_log.title}}</a>
+    <br>
+    <br>
+  {% endfor %}
+{% endblock %}

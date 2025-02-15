@@ -21,6 +21,15 @@ urlpatterns = [
   path('roles/<int:pk>/update/', views.RoleUpdate.as_view(), name='role-update'),
   path('roles/<int:pk>/delete/', views.RoleDelete.as_view(), name='role-delete'),
 
+  #dev logs
+  path('devLogs/<int:game_jam_id>', views.dev_logs, name='dev-logs'),
+  path('devLogs/<int:game_jam_id>/show-dev-log-form/', views.show_dev_log_form, name='show-dev-log-form'),
+  path('devLogs/<int:game_jam_id>/add-dev-log/', views.add_dev_log, name='add-dev-log'),
+  path('devLogs/<int:game_jam_id>/<int:dev_log_id>/', views.dev_log_details, name='dev-log-details'),
+  path('devLogs/<int:pk>/update/', views.DevLogUpdate.as_view(), name='dev-log-update'),
+  path('devLogs/<int:pk>/delete/', views.DevLogDelete.as_view(), name='dev-log-delete'),
+
+
   path('threads/', views.threads, name='threads'),
 
   path('users/', views.users, name='users'),

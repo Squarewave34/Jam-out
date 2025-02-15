@@ -3,6 +3,8 @@
   <h1>{{game_jam.name}}</h1>
   <br>
 
+  <a href="{% url 'dev-logs' game_jam.id%}">dev logs</a>
+  <br>
   {% for role in game_jam.role_set.all %}
     <td>{{role.name}}</td>
     {%if role.open %}

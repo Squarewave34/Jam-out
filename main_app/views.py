@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
-from .models import Game_jam, Role
-from .forms import RoleForm
+from .models import Game_jam, Role, Dev_log
+from .forms import RoleForm, DevLogForm
 from django.urls import reverse
 
 def home(req):
@@ -70,6 +70,40 @@ class RoleUpdate(UpdateView):
   fields = ['open']
   def get_success_url(self):
     return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
+  )
+
+# dev logs
+def dev_logs(req, game_jam_id):
+  dev_logs = Dev_log.objects.filter(game_jam=game_jam_id)
+  return render(req, 'dev-logs.html' ,{'dev_logs': dev_logs, 'game_jam':game_jam_id})
+
+def show_dev_log_form(req, game_jam_id):
+  dev_log_form = DevLogForm()
+  return render(req, 'dev-log-form.html', {'dev_log_form': dev_log_form, 'game_jam':game_jam_id})
+
+def add_dev_log(req, game_jam_id):
+  form = DevLogForm(req.POST, req.FILES)
+  if form.is_valid():
+    new_dev_log = form.save(commit=False)
+    new_dev_log.game_jam = Game_jam.objects.get(id=game_jam_id)
+    new_dev_log.save()
+  return redirect('dev-logs', game_jam_id=game_jam_id)
+
+def dev_log_details(req, game_jam_id, dev_log_id):
+  dev_log = Dev_log.objects.get(id=dev_log_id)
+  return render(req, 'dev-log-details.html', {'game_jam_id':game_jam_id, 'dev_log':dev_log})
+
+class DevLogUpdate(UpdateView):
+  model = Dev_log
+  fields = ['title', 'images', 'description']
+  def get_success_url(self):
+    return reverse('dev-log-details', kwargs={'game_jam_id': self.object.game_jam_id, 'dev_log_id':self.object.id}
+  )
+
+class DevLogDelete(DeleteView):
+  model = Dev_log
+  def get_success_url(self):
+    return reverse('dev-logs', kwargs={'game_jam_id': self.object.game_jam_id}
   )
 
 
