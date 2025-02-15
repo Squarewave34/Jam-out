@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
 from .models import Game_jam, Role
 from .forms import RoleForm
-
+from django.urls import reverse
 
 def home(req):
   return render(req, 'main.html')
@@ -46,7 +46,32 @@ def allRoles(req, game_jam_id):
   # ref https://stackoverflow.com/questions/22063748/django-get-returned-more-than-one-topic
   roles = Role.objects.filter(game_jam=game_jam_id)
   role_form = RoleForm()
-  return render(req, 'role.html' ,{'roles': roles, 'role_form': role_form})
+  return render(req, 'role.html' ,{'roles': roles, 'role_form': role_form, 'game_jam':game_jam_id})
+
+def add_role(request, game_jam_id):
+  form = RoleForm(request.POST)
+  if form.is_valid():
+      new_role = form.save(commit=False)
+      new_role.game_jam_id = game_jam_id
+      new_role.open = True
+      new_role.save()
+  return redirect('all-roles', game_jam_id=game_jam_id)
+
+class RoleDelete(DeleteView):
+  model = Role
+
+# ref: https://stackoverflow.com/questions/68882385/django-deleteview-how-to-pass-a-parameter-to-use-for-success-url
+  def get_success_url(self):
+    return reverse('all-roles', kwargs={'game_jam_id': self.object.game_jam_id}
+    )
+  
+class RoleUpdate(UpdateView):
+  model = Role
+  fields = ['open']
+  def get_success_url(self):
+    return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
+  )
+
 
 # threads
 def threads(req):

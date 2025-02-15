@@ -1,6 +1,10 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Add a Role</h1>
+{%if role.open %}
+  <h1>close this role</h1>
+{% else %}
+  <h1>open this role</h2>
+{% endif %}
 
 <form action="" method="post">
   {% csrf_token %}

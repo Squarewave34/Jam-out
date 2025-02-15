@@ -2,7 +2,7 @@
 {% block content %}
   <h1>roles</h1>
 
-  <form method="post" autocomplete="off">
+  <form action="{% url 'add-role' game_jam %}" method="post" autocomplete="off">
     {% csrf_token %} 
     {{ role_form.as_p }}
     <button type="submit">Add role</button>
@@ -10,5 +10,8 @@
 
   {% for role in roles %}
     <h1>{{role.name}}</h1>
+    <a href="{% url 'role-delete' role.id %}" >Delete</a>
   {% endfor %}
+
+  <a href="{% url 'game-jam-details' game_jam%}">back</a>
 {% endblock %}
