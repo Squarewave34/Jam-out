@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
-from .models import Game_jam, Role, Dev_log
+from .models import Game_jam, Role, Dev_log, Thread
 from .forms import RoleForm, DevLogForm
 from django.urls import reverse
 
@@ -106,10 +106,31 @@ class DevLogDelete(DeleteView):
     return reverse('dev-logs', kwargs={'game_jam_id': self.object.game_jam_id}
   )
 
-
 # threads
 def threads(req):
-  return render(req, 'threads.html')
+  threads = Thread.objects.all()
+  return render(req, 'threads.html', {'threads':threads})
+
+class ThreadCreate(CreateView):
+  model = Thread
+  fields = '__all__'
+  
+  def get_form(self, form_class=None):
+    form = super(ThreadCreate, self).get_form(form_class)
+    form.fields['date'].widget = AdminDateWidget(attrs={'type': 'date'})
+    return form
+
+def thread_details(req, thread_id):
+  thread = Thread.objects.get(id=thread_id)
+  return render(req, 'thread-details.html', {'thread':thread})
+
+class ThreadUpdate(UpdateView):
+  model = Thread
+  fields = '__all__'
+
+class ThreadDelete(DeleteView):
+  model = Thread
+  success_url = '/threads/'
 
 def users(req):
   return render(req, 'users.html')

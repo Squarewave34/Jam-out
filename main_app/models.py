@@ -134,6 +134,9 @@ class Thread(models.Model):
 
   def __str__(self):
     return self.title
+  
+  def get_absolute_url(self):
+    return reverse('threads')
 
 class Comment(models.Model):
   description = models.TextField()
