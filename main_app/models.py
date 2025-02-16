@@ -85,6 +85,12 @@ STATUS = (
   ('c', 'Completed')
 )
 
+
+PARTICIPANTS_STATUS = (
+  ('n', 'not accepted'),
+  ('a', 'accepted')
+)
+
 # Create your models here.
 class Game_jam(models.Model):
   name = models.CharField(max_length=200)
@@ -151,3 +157,13 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   solution = models.BooleanField(default=False)
   thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+
+class Participant(models.Model):
+  role = models.ForeignKey(Role, on_delete=models.CASCADE)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
+  status = models.CharField(max_length=1, choices=PARTICIPANTS_STATUS, default=PARTICIPANTS_STATUS[0][0])
+
+  def __str__(self):
+    return f"{self.user} applied to be a(n) {self.role} to your game_jam {self.game_jam}"
+

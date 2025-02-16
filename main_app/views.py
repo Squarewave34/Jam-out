@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
-from .models import Game_jam, Role, Dev_log, Thread, Comment
-from .forms import RoleForm, DevLogForm, CommentForm
+from .models import Game_jam, Role, Dev_log, Thread, Comment, Participant
+from .forms import RoleForm, DevLogForm, CommentForm, ApplyForm
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
@@ -34,6 +34,9 @@ def main(req):
   threads = Thread.objects.all().order_by('-date')[:3]
   return render(req, 'main.html', {'ongoing': game_jams_ongoing, 'completed': game_jams_completed, 'threads': threads})
 
+# def inbox(req):
+
+
 # game jam
 def game_jams(req):
   game_jams = Game_jam.objects.all()
@@ -41,7 +44,8 @@ def game_jams(req):
 
 def game_jam_details(req, game_jam_id):
   game_jam = Game_jam.objects.get(id=game_jam_id)
-  return render(req, 'game-jam-details.html', {'game_jam':game_jam, 'request_user':req.user})
+  participants = Participant.objects.filter(game_jam=game_jam_id)
+  return render(req, 'game-jam-details.html', {'game_jam':game_jam, 'request_user':req.user, 'participants': participants})
 
 class GameJamCreate(LoginRequiredMixin, CreateView):
   model = Game_jam
@@ -99,6 +103,11 @@ class RoleUpdate(LoginRequiredMixin, UpdateView):
   def get_success_url(self):
     return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
   )
+
+def apply(req, role_id):
+  role = Role.objects.get(id=role_id)
+  apply_form = ApplyForm()
+  return render(req, 'apply.html', {'role':role, 'apply_form':apply_form})
 
 # dev logs
 def dev_logs(req, game_jam_id):

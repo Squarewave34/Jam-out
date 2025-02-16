@@ -1,6 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>profile</h1>
+  {% comment %} <a href="{% url 'inbox' %}">inbox</a> {% endcomment %}
   <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Log out</button>

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Role, Dev_log, Comment
+from .models import Role, Dev_log, Comment, Participant
 
 class RoleForm(forms.ModelForm):
   class Meta:
@@ -15,3 +15,8 @@ class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
     fields= ['description', 'images']
+
+class ApplyForm(forms.ModelForm):
+  class Meta:
+    model = Participant
+    fields = ['role', 'game_jam']

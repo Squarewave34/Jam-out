@@ -1,0 +1,11 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<h2>do you want to apply to be a(n) {{role.name}}</h2>
+<form action="{% url 'add-comment' role.id %}" method="post" autocomplete="off">
+  {% csrf_token %} 
+  {{ apply_form.as_p }}
+  <button type="submit">Comment</button>
+</form>
+
+{% endblock %}

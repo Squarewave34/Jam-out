@@ -8,6 +8,7 @@ urlpatterns = [
   path('', views.Home.as_view(), name='home'),
   path('main/', views.main, name='main'),
   path('accounts/signup/', views.signup, name='signup'),
+  # path('inbox/', views.inbox, name='inbox')
 
   # game jams
   path('gameJams/', views.game_jams, name='game-jams'),
@@ -21,6 +22,7 @@ urlpatterns = [
   path('roles/<int:game_jam_id>/add-role/', views.add_role, name='add-role'),
   path('roles/<int:pk>/update/', views.RoleUpdate.as_view(), name='role-update'),
   path('roles/<int:pk>/delete/', views.RoleDelete.as_view(), name='role-delete'),
+  path('roles/<int:role_id>/apply', views.apply, name="apply"),
 
   #dev logs
   path('devLogs/<int:game_jam_id>', views.dev_logs, name='dev-logs'),
