@@ -118,7 +118,7 @@ class Role(models.Model):
 class Dev_log(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
-  images = models.ImageField()
+  images = models.ImageField(blank=True)
   description = models.TextField()
   game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
   # links

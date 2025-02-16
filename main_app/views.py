@@ -103,7 +103,8 @@ class RoleUpdate(LoginRequiredMixin, UpdateView):
 # dev logs
 def dev_logs(req, game_jam_id):
   dev_logs = Dev_log.objects.filter(game_jam=game_jam_id)
-  return render(req, 'dev-logs.html' ,{'dev_logs': dev_logs, 'game_jam':game_jam_id})
+  game_jam = Game_jam.objects.get(id=game_jam_id)
+  return render(req, 'dev-logs.html' ,{'dev_logs': dev_logs, 'game_jam':game_jam_id, 'game_jam_name':game_jam})
 
 @login_required
 def show_dev_log_form(req, game_jam_id):

@@ -18,6 +18,7 @@
   <h3>Technology And Specifications:</h3>
   {{game_jam.technology}}
   <h3>roles</h3>
+  {% comment %} ref: https://stackoverflow.com/questions/69059272/only-show-edit-button-on-owners-posts-django {% endcomment %}
     {%if game_jam.user == request_user%}
       {% for role in game_jam.role_set.all %}
         <td>{{role.name}}</td>

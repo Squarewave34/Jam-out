@@ -9,16 +9,7 @@ class RoleForm(forms.ModelForm):
 class DevLogForm(forms.ModelForm):
   class Meta:
     model = Dev_log
-    fields = ['title', 'date', 'images', 'description']
-    widgets = {
-      'date': forms.DateInput(
-        format=('%Y-%m-%d'),
-        attrs={
-          'placeholder': 'Select a date',
-          'type': 'date'
-        }
-      ),
-    }
+    fields = ['title', 'images', 'description']
 
 class CommentForm(forms.ModelForm):
   class Meta:

@@ -1,6 +1,10 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>{{dev_log.title}}</h1>
+  <h3>{{dev_log.date}}</h3>
+  <p> {{dev_log.description}} </p>
+  {% comment %} images {% endcomment %}
+  <a href="{% url 'dev-logs' game_jam_id%}">dev logs</a>
   <a href="{% url 'dev-log-update' dev_log.id %}">Edit</a>
   <br>
   <br>

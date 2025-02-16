@@ -1,13 +1,21 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Dev logs</h1>
+  <h1>{{game_jam_name.name}} Dev logs</h1>
   <a href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
   <br>
   <br>
-  {% for dev_log in dev_logs %}
-    {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
-    <a href="{% url 'dev-log-details' game_jam dev_log.id %}">{{dev_log.title}}</a>
-    <br>
-    <br>
-  {% endfor %}
+  {% if dev_logs%}
+    {% for dev_log in dev_logs %}
+      {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
+      <h3>{{dev_log.title}}</h3>
+      <p>@{{dev_log.user}}</p>
+      <p>{{dev_log.date}}</p>
+      <a href="{% url 'dev-log-details' game_jam dev_log.id %}">view</a>
+      <br>
+      <br>
+    {% endfor %}
+  {%else%}
+    <p>no dev logs yet, add some</p>
+    <a href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
+  {%endif%}
 {% endblock %}
