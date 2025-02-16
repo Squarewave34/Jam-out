@@ -41,7 +41,7 @@ def game_jams(req):
 
 def game_jam_details(req, game_jam_id):
   game_jam = Game_jam.objects.get(id=game_jam_id)
-  return render(req, 'game-jam-details.html', {'game_jam':game_jam})
+  return render(req, 'game-jam-details.html', {'game_jam':game_jam, 'request_user':req.user})
 
 class GameJamCreate(LoginRequiredMixin, CreateView):
   model = Game_jam

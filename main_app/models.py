@@ -97,7 +97,7 @@ class Game_jam(models.Model):
   technology = models.TextField()
   # game 
   # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
-  start_date = models.DateField(("Date"), default=date.today)
+  start_date = models.DateField(default=date.today)
   end_date = models.DateField()
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 

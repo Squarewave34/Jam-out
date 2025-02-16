@@ -1,25 +1,53 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>{{game_jam.name}}</h1>
-  <br>
+  <h2> {{game_jam.start_date}} - {{game_jam.end_date}} </h2>
+
+  {% if monetization %}
+    <p>Monetized</p>
+  {% else %}
+    <p>Non profit</p>
+  {% endif %}
 
   <a href="{% url 'dev-logs' game_jam.id%}">dev logs</a>
+  <p>communication via: {{game_jam.hosting}} </p>
+  <p>Application submission until: {{game_jam.application_duration}} </p>
+  <p>{{game_jam.description}}</p>
+  <p>{{game_jam.get_Game_genre_display}}</p>
   <br>
-  {% for role in game_jam.role_set.all %}
-    <td>{{role.name}}</td>
-    {%if role.open %}
-      <a href={% url 'role-update' role.id%}>close</a>
-    {% else %}
-      <a href={% url 'role-update' role.id%}>closed</a>
+  <h3>Technology And Specifications:</h3>
+  {{game_jam.technology}}
+  <h3>roles</h3>
+    {%if game_jam.user == request_user%}
+      {% for role in game_jam.role_set.all %}
+        <td>{{role.name}}</td>
+        {%if role.open %}
+          <a href={% url 'role-update' role.id%}>close</a>
+        {% else %}
+          <a href={% url 'role-update' role.id%}>closed</a>
+        {% endif %}
+        <br>
+        <br>
+      {% endfor %}
+    {%else%}
+      {% for role in game_jam.role_set.all %}
+        <td>{{role.name}}</td>
+        {%if role.open %}
+          <a>Apply</a>
+        {% else %}
+          <a>closed</a>
+        {% endif %}
+        <br>
+        <br>
+      {% endfor %}
     {% endif %}
-    <br>
-    <br>
-  {% endfor %}
 
-  <a href="{% url 'all-roles' game_jam.id %}">add a role</a>
-  <br>
-  <a href="{% url 'game-jam-update' game_jam.id %}">Edit</a>
-  <br>
-  <br>
-  <a href="{% url 'game-jam-delete' game_jam.id %}">Delete</a>
+    {%if game_jam.user == request_user%}
+      <a href="{% url 'all-roles' game_jam.id %}">add a role</a>
+      <br>
+      <a href="{% url 'game-jam-update' game_jam.id %}">Edit</a>
+      <br>
+      <br>
+      <a href="{% url 'game-jam-delete' game_jam.id %}">Delete</a>
+    {%endif%}
 {% endblock %}
