@@ -1,5 +1,5 @@
 from django import forms
-from .models import Role, Dev_log
+from .models import Role, Dev_log, Comment
 
 class RoleForm(forms.ModelForm):
   class Meta:
@@ -19,3 +19,8 @@ class DevLogForm(forms.ModelForm):
         }
       ),
     }
+
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model = Comment
+    fields= ['description', 'images']

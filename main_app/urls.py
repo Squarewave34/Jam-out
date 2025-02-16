@@ -29,11 +29,17 @@ urlpatterns = [
   path('devLogs/<int:pk>/update/', views.DevLogUpdate.as_view(), name='dev-log-update'),
   path('devLogs/<int:pk>/delete/', views.DevLogDelete.as_view(), name='dev-log-delete'),
 
+  # Threads
   path('threads/', views.threads, name='threads'),
   path('threads/create', views.ThreadCreate.as_view(), name='thread-create'),
   path('threads/<int:thread_id>/', views.thread_details, name='thread-details'),
   path('threads/<int:pk>/update/', views.ThreadUpdate.as_view(), name='thread-update'),
   path('threads/<int:pk>/delete/', views.ThreadDelete.as_view(), name='thread-delete'),
+
+  # Comments
+  path('comments/<int:thread_id>/add-comment/', views.add_comment, name='add-comment'),
+  path('comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='solution'),
+
 
   path('users/', views.users, name='users'),
 

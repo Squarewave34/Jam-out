@@ -127,10 +127,10 @@ class Dev_log(models.Model):
 class Thread(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
-  images = models.ImageField()
+  images = models.ImageField(blank=True)
   description = models.TextField()
   # likes
-  open = models.BooleanField()
+  open = models.BooleanField(default=True)
 
   def __str__(self):
     return self.title
@@ -141,8 +141,9 @@ class Thread(models.Model):
 class Comment(models.Model):
   description = models.TextField()
   date = models.DateField(("Date"), default=date.today)
-  images = models.ImageField()
+  # https://stackoverflow.com/questions/7341066/can-i-make-an-admin-field-not-required-in-django-without-creating-a-form
+  images = models.ImageField(blank=True)
   likes = models.IntegerField(default=0)
   # user id
-  solution = models.BooleanField()
-  # thread id
+  solution = models.BooleanField(default=False)
+  thread = models.ForeignKey(Thread, on_delete=models.CASCADE)

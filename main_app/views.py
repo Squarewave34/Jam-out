@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
-from .models import Game_jam, Role, Dev_log, Thread
-from .forms import RoleForm, DevLogForm
+from .models import Game_jam, Role, Dev_log, Thread, Comment
+from .forms import RoleForm, DevLogForm, CommentForm
 from django.urls import reverse
 
 def home(req):
@@ -113,16 +113,13 @@ def threads(req):
 
 class ThreadCreate(CreateView):
   model = Thread
-  fields = '__all__'
-  
-  def get_form(self, form_class=None):
-    form = super(ThreadCreate, self).get_form(form_class)
-    form.fields['date'].widget = AdminDateWidget(attrs={'type': 'date'})
-    return form
+  fields = ['title', 'images', 'description']
 
 def thread_details(req, thread_id):
   thread = Thread.objects.get(id=thread_id)
-  return render(req, 'thread-details.html', {'thread':thread})
+  comments = Comment.objects.filter(thread=thread_id)
+  add_comment = CommentForm()
+  return render(req, 'thread-details.html', {'thread':thread, 'comments':comments, 'add_comment':add_comment})
 
 class ThreadUpdate(UpdateView):
   model = Thread
@@ -131,6 +128,23 @@ class ThreadUpdate(UpdateView):
 class ThreadDelete(DeleteView):
   model = Thread
   success_url = '/threads/'
+
+# comment
+def add_comment(request, thread_id):
+  form = CommentForm(request.POST, request.FILES)
+  if form.is_valid():
+    new_comment = form.save(commit=False)
+    new_comment.thread = Thread.objects.get(id=thread_id)
+    new_comment.save()
+  return redirect('thread-details', thread_id=thread_id)
+
+class CommentUpdate(UpdateView):
+  model = Comment
+  fields = ['solution']
+
+  def get_success_url(self):
+    return reverse('thread-details', kwargs={'thread_id': self.object.thread.id}
+  )
 
 def users(req):
   return render(req, 'users.html')

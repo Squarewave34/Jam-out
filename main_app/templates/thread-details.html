@@ -1,6 +1,17 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>{{thread.title}}</h1>
+  {% for comment in comments%}
+    <p>{{comment.description}}</p>
+    <a href="{% url 'solution' comment.id%}">pick solution</a>
+  {%endfor%}
+
+  <form action="{% url 'add-comment' thread.id %}" enctype="multipart/form-data" method="post" autocomplete="off">
+    {% csrf_token %} 
+    {{ add_comment.as_p }}
+    <button type="submit">Comment</button>
+  </form>
+
   <a href="{% url 'thread-update' thread.id %}">Edit</a>
   <br>
   <br>
