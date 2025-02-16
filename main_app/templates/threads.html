@@ -2,8 +2,15 @@
 {% block content %}
   <h1>threads</h1>
   <a href="{% url 'thread-create' %}">create a thread</a>
-  {% for thread in threads %}
-    <a href="{% url 'thread-details' thread.id%}">{{thread.title}}</a>
-    <br>
-  {% endfor %}
+  {%if threads %}
+    {% for thread in threads %}
+      <h3>{{thread.title}}</h3>
+      <p>@{{thread.user}}</p>
+      <a href="{% url 'thread-details' thread.id%}">view</a>
+      <br>
+    {% endfor %}
+  {%else%}
+    <p>no threads yet, add some</p>
+    <a href="{% url 'thread-create'%}">create a thread</a>
+  {%endif%}
 {% endblock %}

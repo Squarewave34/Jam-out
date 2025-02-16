@@ -1,9 +1,24 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>{{thread.title}}</h1>
+  <h3>
+    {% if thread.open %}
+      open
+    {% else %}
+      closed
+    {% endif %}
+  </h3>
+  <p>@{{thread.user}}</p>
+  <p>{{thread.date}}</p>
+  <p>{{thread.description}}</p>
+
+  {% comment %} images {% endcomment %}
+
   {% for comment in comments%}
     <p>{{comment.description}}</p>
-    <a href="{% url 'solution' comment.id%}">pick solution</a>
+    {%if thread.user == request_user%}
+      <a href="{% url 'solution' comment.id%}">pick solution</a>
+    {%endif%}
   {%endfor%}
 
   <form action="{% url 'add-comment' thread.id %}" enctype="multipart/form-data" method="post" autocomplete="off">
@@ -12,8 +27,11 @@
     <button type="submit">Comment</button>
   </form>
 
-  <a href="{% url 'thread-update' thread.id %}">Edit</a>
-  <br>
-  <br>
-  <a href="{% url 'thread-delete' thread.id %}">Delete</a>
+  <a href="{% url 'threads' %}">all threads</a>
+  {%if thread.user == request_user%}
+    <a href="{% url 'thread-update' thread.id %}">Edit</a>
+    <br>
+    <br>
+    <a href="{% url 'thread-delete' thread.id %}">Delete</a>
+  {%endif%}
 {% endblock %}

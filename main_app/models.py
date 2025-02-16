@@ -139,7 +139,7 @@ class Thread(models.Model):
     return self.title
   
   def get_absolute_url(self):
-    return reverse('threads')
+    return reverse('thread-details', kwargs={'thread_id': self.id})
 
 
 class Comment(models.Model):

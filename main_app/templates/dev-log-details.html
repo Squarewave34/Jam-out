@@ -5,8 +5,10 @@
   <p> {{dev_log.description}} </p>
   {% comment %} images {% endcomment %}
   <a href="{% url 'dev-logs' game_jam_id%}">dev logs</a>
-  <a href="{% url 'dev-log-update' dev_log.id %}">Edit</a>
-  <br>
-  <br>
-  <a href="{% url 'dev-log-delete' dev_log.id %}">Delete</a>
+  {%if game_jam.user == request_user%}
+    <a href="{% url 'dev-log-update' dev_log.id %}">Edit</a>
+    <br>
+    <br>
+    <a href="{% url 'dev-log-delete' dev_log.id %}">Delete</a>
+  {% endif %}
 {% endblock %}

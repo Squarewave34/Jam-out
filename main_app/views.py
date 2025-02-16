@@ -124,7 +124,7 @@ def add_dev_log(req, game_jam_id):
 
 def dev_log_details(req, game_jam_id, dev_log_id):
   dev_log = Dev_log.objects.get(id=dev_log_id)
-  return render(req, 'dev-log-details.html', {'game_jam_id':game_jam_id, 'dev_log':dev_log})
+  return render(req, 'dev-log-details.html', {'game_jam_id':game_jam_id, 'dev_log':dev_log, 'request_user': req.user})
 
 class DevLogUpdate(LoginRequiredMixin, UpdateView):
   model = Dev_log
@@ -155,7 +155,7 @@ def thread_details(req, thread_id):
   thread = Thread.objects.get(id=thread_id)
   comments = Comment.objects.filter(thread=thread_id)
   add_comment = CommentForm()
-  return render(req, 'thread-details.html', {'thread':thread, 'comments':comments, 'add_comment':add_comment})
+  return render(req, 'thread-details.html', {'thread':thread, 'comments':comments, 'add_comment':add_comment, 'request_user': req.user})
 
 class ThreadUpdate(LoginRequiredMixin, UpdateView):
   model = Thread
