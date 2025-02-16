@@ -28,11 +28,11 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'signup.html', context)
 
-def home(req):
-  return render(req, 'main.html')
-
 def main(req):
-  return render(req, 'main.html')
+  game_jams_ongoing = Game_jam.objects.filter(status='o')
+  game_jams_completed = Game_jam.objects.filter(status='c')
+  threads = Thread.objects.all().order_by('-date')[:3]
+  return render(req, 'main.html', {'ongoing': game_jams_ongoing, 'completed': game_jams_completed, 'threads': threads})
 
 # game jam
 def game_jams(req):

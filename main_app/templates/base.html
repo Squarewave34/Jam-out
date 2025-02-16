@@ -16,14 +16,13 @@
           <li><a href="{% url 'main' %}">home</a></li>
           <li><a href="{% url 'game-jams' %}">Game Jams</a></li>
           <li><a href="{% url 'threads' %}">Threads</a></li>
-          <li><a href="{% url 'users' %}">Users</a></li>
-          <li><a href="{% url 'profile' %}">profile</a></li>
-          <li>
-            <form method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit">Log out</button>
-            </form>
-          </li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'users' %}">Users</a></li>
+            <li><a href="{% url 'profile' %}">profile</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}" >Sign up</a></li>
+            <li><a href="{% url 'home' %}">Sign in</a></li>
+          {% endif %}
         </ul>
       </nav>
     </header>

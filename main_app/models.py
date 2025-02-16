@@ -141,6 +141,7 @@ class Thread(models.Model):
   def get_absolute_url(self):
     return reverse('threads')
 
+
 class Comment(models.Model):
   description = models.TextField()
   date = models.DateField(("Date"), default=date.today)

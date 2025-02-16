@@ -1,4 +1,25 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Main page</h1>
+  <h3>on going game jams</h3>
+  {% for game_jam in ongoing|slice:":3" %}
+    <p>{{game_jam.name}}</p>
+    <a href="{% url 'game-jam-details' game_jam.id%}">join</a>
+  {% endfor %}
+  <a href="{% url 'game-jams' %}">see more</a>
+
+  <h3>completed game jams</h3>
+  {% for game_jam in completed|slice:":3" %}
+    <p>{{game_jam.name}}</p>
+    <a href="{% url 'game-jam-details' game_jam.id%}">view</a>
+  {% endfor %}
+  <a href="{% url 'game-jams' %}">see more</a>
+
+  <h3>latest threads</h3>
+  {% for thread in threads%}
+    <p> {{thread.title}} </p>
+    <p> @{{thread.user}} </p>
+    <a href="{% url 'thread-details' thread.id %}"> View </a>
+  {% endfor %}
+  <a href="{% url 'threads' %}">All threads</a>
+
 {% endblock %}
