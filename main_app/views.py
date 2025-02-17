@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # ref: https://stackoverflow.com/questions/21405895/datepickerwidget-in-createview
 from django.contrib.admin.widgets import AdminDateWidget
 from .models import Game_jam, Role, Dev_log, Thread, Comment, Participant
-from .forms import RoleForm, DevLogForm, CommentForm, ApplyForm
+from .forms import RoleForm, DevLogForm, CommentForm
 from django.urls import reverse
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login
@@ -103,11 +103,18 @@ class RoleUpdate(LoginRequiredMixin, UpdateView):
   def get_success_url(self):
     return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
   )
-
+  
+@login_required
 def apply(req, role_id):
-  role = Role.objects.get(id=role_id)
-  apply_form = ApplyForm()
-  return render(req, 'apply.html', {'role':role, 'apply_form':apply_form})
+  applied_role = Role.objects.get(id=role_id)
+  applied_user = req.user
+  applied_game_jam = Game_jam.objects.get(id=applied_role.game_jam.id)
+  participant, created = Participant.objects.get_or_create(
+    role=applied_role,
+    user=applied_user,
+    game_jam=applied_game_jam
+  )
+  return redirect('game-jam-details', game_jam_id=applied_game_jam.id)
 
 # dev logs
 def dev_logs(req, game_jam_id):
