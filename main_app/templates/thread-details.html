@@ -4,6 +4,7 @@
   <h3>
     {% if thread.open %}
       open
+      <a href="{% url 'close-thread' thread.id %}">close</a>
     {% else %}
       closed
     {% endif %}
@@ -15,10 +16,21 @@
   {% comment %} images {% endcomment %}
 
   {% for comment in comments%}
-    <p>{{comment.description}}</p>
-    {%if thread.user == request_user%}
-      <a href="{% url 'solution' comment.id%}">pick solution</a>
-    {%endif%}
+    {% if comment.solution == True %}
+      <p>this solution solved the issue</p>
+      <p>@{{comment.user}}</p>
+      <p>{{comment.description}}</p>
+    {% endif %}
+  {%endfor%}
+
+  {% for comment in comments%}
+    {% if comment.solution == False %}
+      <p>@{{comment.user}}</p>
+      <p>{{comment.description}}</p>
+      {%if thread.user == request_user and thread.open == True%}
+        <a href="{% url 'solution' comment.id%}">pick solution</a>
+      {%endif%}
+    {% endif %}
   {%endfor%}
 
   <form action="{% url 'add-comment' thread.id %}" enctype="multipart/form-data" method="post" autocomplete="off">

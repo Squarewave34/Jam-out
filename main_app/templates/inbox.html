@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <h1>{{user}}'s inbox</h1>
+  {% for application in applications %}
+    {%if application.status == 'w'%}
+      <p> new applications in {{application.game_jam}} </p>
+      <a href="{% url 'game-jam-applications' application.game_jam.id%}">view</a>
+    {%endif%}
+  {% endfor %}
+
+  <h1>your applications</h1>
+  {% for application in applied %}
+    {% if application.status != 'w'%}
+      <p>Your application for {{application.game_jam}} has been reviewed</p>
+      <a href="{% url 'result' application.id %}">view</a>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

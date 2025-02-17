@@ -33,8 +33,12 @@
     {%else%}
       {% for role in game_jam.role_set.all %}
         <td>{{role.name}}</td>
-        {%if role.open %}
-          <a href="{% url 'apply' role.id%}">Apply</a>
+        {%if role.open%}
+          {%if role.id not in applied_roles%}
+            <a href="{% url 'apply' role.id%}">Apply</a>
+          {% else %}
+            <p> you've applied </p>
+          {%endif%}
         {% else %}
           <a>closed</a>
         {% endif %}
@@ -47,6 +51,7 @@
     {% for participant in participants %}
       {%if participant.status == 'a' %}
         <p>{{participant.user}}</p>
+        <p>{{participant.role}}</p>
       {%endif%}
     {%endfor%}
 

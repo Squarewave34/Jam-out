@@ -8,7 +8,11 @@ urlpatterns = [
   path('', views.Home.as_view(), name='home'),
   path('main/', views.main, name='main'),
   path('accounts/signup/', views.signup, name='signup'),
-  # path('inbox/', views.inbox, name='inbox')
+
+  # inbox
+  path('inbox/', views.inbox, name='inbox'),
+  path('inbox/<int:game_jam_id>/', views.game_jam_applications, name='game-jam-applications'),
+  path('inbox/<int:application_id>/result', views.result, name='result'),
 
   # game jams
   path('gameJams/', views.game_jams, name='game-jams'),
@@ -22,7 +26,9 @@ urlpatterns = [
   path('roles/<int:game_jam_id>/add-role/', views.add_role, name='add-role'),
   path('roles/<int:pk>/update/', views.RoleUpdate.as_view(), name='role-update'),
   path('roles/<int:pk>/delete/', views.RoleDelete.as_view(), name='role-delete'),
-  path('roles/<int:role_id>/apply', views.apply, name="apply"),
+  path('roles/<int:role_id>/apply/', views.apply, name="apply"),
+  path('role/<int:application_id>/approve', views.approve, name='approve'),
+  path('role/<int:application_id>/deny', views.deny, name="deny"),
 
   #dev logs
   path('devLogs/<int:game_jam_id>', views.dev_logs, name='dev-logs'),
@@ -38,10 +44,11 @@ urlpatterns = [
   path('threads/<int:thread_id>/', views.thread_details, name='thread-details'),
   path('threads/<int:pk>/update/', views.ThreadUpdate.as_view(), name='thread-update'),
   path('threads/<int:pk>/delete/', views.ThreadDelete.as_view(), name='thread-delete'),
+  path('threads/<int:thread_id>/close/', views.close_thread, name='close-thread'),
 
   # Comments
   path('comments/<int:thread_id>/add-comment/', views.add_comment, name='add-comment'),
-  path('comments/<int:pk>/update/', views.CommentUpdate.as_view(), name='solution'),
+  path('comments/<int:comment_id>/update/', views.solution, name='solution'),
 
 
   path('users/', views.users, name='users'),

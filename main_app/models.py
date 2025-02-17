@@ -87,8 +87,9 @@ STATUS = (
 
 
 PARTICIPANTS_STATUS = (
-  ('n', 'not accepted'),
-  ('a', 'accepted')
+  ('w', 'waiting'),
+  ('d', 'denied'),
+  ('a', 'accepted'),
 )
 
 # Create your models here.

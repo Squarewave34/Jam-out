@@ -34,18 +34,36 @@ def main(req):
   threads = Thread.objects.all().order_by('-date')[:3]
   return render(req, 'main.html', {'ongoing': game_jams_ongoing, 'completed': game_jams_completed, 'threads': threads})
 
-# def inbox(req):
+# inbox
+@login_required
+def inbox(req):
+  game_jams = Game_jam.objects.filter(user=req.user)
+  applications = Participant.objects.filter(game_jam__in=game_jams)
+  applied = Participant.objects.filter(user=req.user)
+  return render(req, 'inbox.html', {'applications':applications, 'applied':applied})
 
+@login_required
+def game_jam_applications(req, game_jam_id):
+  game_jam = Game_jam.objects.get(id=game_jam_id)
+  applications = Participant.objects.filter(game_jam=game_jam)
+  return render(req, 'game-jam-applications.html', {'applications':applications, 'game_jam':game_jam})
+
+@login_required
+def result(req, application_id):
+  application = Participant.objects.get(id=application_id)
+  return render(req, 'result.html', {'application':application})
 
 # game jam
 def game_jams(req):
   game_jams = Game_jam.objects.all()
   return render(req, 'game-jams.html', {'game_jams': game_jams})
 
+# ref: https://stackoverflow.com/questions/37205793/django-values-list-vs-values
 def game_jam_details(req, game_jam_id):
   game_jam = Game_jam.objects.get(id=game_jam_id)
   participants = Participant.objects.filter(game_jam=game_jam_id)
-  return render(req, 'game-jam-details.html', {'game_jam':game_jam, 'request_user':req.user, 'participants': participants})
+  applied_roles = Participant.objects.filter(user=req.user).values_list('role', flat=True)
+  return render(req, 'game-jam-details.html', {'game_jam':game_jam, 'request_user':req.user, 'participants': participants, 'applied_roles':applied_roles})
 
 class GameJamCreate(LoginRequiredMixin, CreateView):
   model = Game_jam
@@ -103,7 +121,8 @@ class RoleUpdate(LoginRequiredMixin, UpdateView):
   def get_success_url(self):
     return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
   )
-  
+
+# ref: https://stackoverflow.com/questions/1941212/how-to-use-get-or-create-in-django
 @login_required
 def apply(req, role_id):
   applied_role = Role.objects.get(id=role_id)
@@ -115,6 +134,26 @@ def apply(req, role_id):
     game_jam=applied_game_jam
   )
   return redirect('game-jam-details', game_jam_id=applied_game_jam.id)
+
+@login_required
+def approve(req, application_id):
+  application = Participant.objects.get(id=application_id)
+  # ref https://stackoverflow.com/questions/16329946/django-model-method-create-or-update
+  approved_application, created = Participant.objects.update_or_create(
+    id=application_id, 
+    defaults={'status': 'a'}
+  )
+  return redirect('game-jam-applications', game_jam_id=application.game_jam.id)
+
+@login_required
+def deny(req, application_id):
+  application = Participant.objects.get(id=application_id)
+  approved_application, created = Participant.objects.update_or_create(
+    id=application_id,
+    defaults={'status': 'd'}
+  )
+  return redirect('game-jam-applications', game_jam_id=application.game_jam.id)
+
 
 # dev logs
 def dev_logs(req, game_jam_id):
@@ -181,6 +220,14 @@ class ThreadDelete(LoginRequiredMixin, DeleteView):
   model = Thread
   success_url = '/threads/'
 
+def close_thread(req, thread_id):
+  thread = Thread.objects.get(id=thread_id)
+  closed_thread, created = Thread.objects.update_or_create(
+    id=thread_id, 
+    defaults={'open': False}
+  )
+  return redirect('thread-details', thread_id=thread_id)
+
 # comment
 @login_required
 def add_comment(request, thread_id):
@@ -192,16 +239,18 @@ def add_comment(request, thread_id):
     new_comment.save()
   return redirect('thread-details', thread_id=thread_id)
 
-class CommentUpdate(LoginRequiredMixin, UpdateView):
-  model = Comment
-  fields = ['solution']
-
-  def get_success_url(self):
-    return reverse('thread-details', kwargs={'thread_id': self.object.thread.id}
+def solution(req, comment_id):
+  pick_solution = Comment.objects.get(id=comment_id)
+  picked_solution, created = Comment.objects.update_or_create(
+    id=comment_id,
+    defaults={'solution': True}
   )
+  return redirect('thread-details', thread_id=pick_solution.thread.id)
 
+@login_required
 def users(req):
   return render(req, 'users.html')
 
+@login_required
 def profile(req):
   return render(req, 'profile.html')

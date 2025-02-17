@@ -1,0 +1,22 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <h1>{{game_jam.name}}'s applications</h1>
+
+  <h2>new applications</h2>
+  {% for application in applications %}
+    {% if application.status == 'w' %}
+      <p>{{application.user}} applied for the position: {{application.role}}<p>
+      <a href="{% url 'approve' application.id %}">approve</a>
+      <a href="{% url 'deny' application.id %}">deny</a>
+    {% endif %}
+  {% endfor %}
+
+  <h2>application list</h2>
+  {% for application in applications %}
+  {% if application.status != 'w' %}
+    <p>{{application.user}} applied for the position: {{application.role}}<p>
+    <p>{{application.get_status_display}}</p>
+  {% endif %}
+{% endfor %}
+
+{% endblock %}

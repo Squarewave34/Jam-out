@@ -1,7 +1,7 @@
 {% extends 'base.html' %} 
 {% block content %}
   <h1>welcome {{user}}</h1>
-  {% comment %} <a href="{% url 'inbox' %}">inbox</a> {% endcomment %}
+  <a href="{% url 'inbox' %}">inbox</a>
   <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <button type="submit">Log out</button>
