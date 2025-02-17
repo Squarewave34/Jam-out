@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Nabla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kelly+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap');
+
+*{
+  box-sizing: border-box;
+}
+
+/* colors */
+:root{
+  --Main: #6E3293;
+  --Dark: #1A1A1B;
+  --Light: #F3E9F6;
+  --Accent: #68D15E;
+  --gray: #9F98A4;
+}
+
+.test {
+  font-family: "Lekton", serif;
+  font-weight: 800;
+  font-style: bold;
+}
