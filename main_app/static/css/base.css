@@ -16,7 +16,7 @@
 }
 
 /* fonts */
-.main_text, h2{
+.main_text, h2, h3{
   font-family: "Kelly Slab", serif;
   font-style: normal;
 }
@@ -33,7 +33,7 @@
 /* classes for base.html */
 .nav_bar_element{
   font-weight: 400;
-  color: var(--Light);
+  color: white;
   font-size: 18px;
   margin: 8px 15px 0;
   padding: 12px 5px 13px;

@@ -1,0 +1,66 @@
+h3{
+  display: inline-block;
+  width: auto;
+  font-weight: 400;
+  color: var(--Main);
+}
+
+.h3{
+  margin: 50px 0 0;
+  padding: 10px;
+  background: var(--Main);
+  color: white;
+}
+
+p{
+  margin-bottom: 10px;
+  margin-left: 5px;
+  color: var(--Main);
+}
+
+.home_page_block_inner{
+  background-color: var(--Light);
+  padding: 15px;
+}
+
+.home_page_block{
+  width: 80vw;
+}
+
+.card{
+  width: 25%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.288);
+  margin: 15px 0 30px;
+}
+
+.card_info, #card_info_thread{
+  background-color: white;
+  width: 100%;
+  padding: 10px 10px 0;
+  position: relative;
+}
+
+.card_info{
+  min-height: 100px;
+}
+
+#card_info_thread{
+  height: 400px;
+}
+
+.left{
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.image{
+  width: 100%;
+  height: 300px;
+  background-color: var(--Dark);
+}
+
+#arrow{
+  width: 20px;
+  margin-left: 10px;
+}

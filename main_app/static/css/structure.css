@@ -1,5 +1,5 @@
 /* flex */
-.flex{
+.flex, .flex_space_around, .flex_space_in_between{
   display: flex;
   align-items: center;
 }
@@ -9,11 +9,14 @@
 }
 
 .flex_space_in_between{
-  display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
+.flex_space_around{
+  justify-content: space-around;
+}
+
+/* containers */
 .middle{
   width: 100%;
   display: flex;
