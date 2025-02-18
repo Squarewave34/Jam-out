@@ -32,7 +32,7 @@ form p{
   text-align: start;
 }
 
-form input{
+form input, textarea, select{
   min-width: 50vw;
   min-height: 40px;
   border: 2px solid var(--Main);

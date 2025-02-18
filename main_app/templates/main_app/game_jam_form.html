@@ -1,13 +1,14 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Add a Game jam</h1>
-
-<form action="" method="post">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <button type="submit">Submit</button>
-</form>
+  <div class="middle">
+    <div>
+      <h2>Add a Game jam</h2>
+      <form action="" method="post">
+        {% csrf_token %}
+          {{ form.as_p}}
+        <button type="submit"class="call_to_action">Submit</button>
+      </form>
+    </div>
+  </div>
 
 {% endblock %}
