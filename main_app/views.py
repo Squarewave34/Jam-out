@@ -59,6 +59,7 @@ def game_jams(req):
   return render(req, 'game-jams.html', {'game_jams': game_jams})
 
 # ref: https://stackoverflow.com/questions/37205793/django-values-list-vs-values
+@login_required
 def game_jam_details(req, game_jam_id):
   game_jam = Game_jam.objects.get(id=game_jam_id)
   participants = Participant.objects.filter(game_jam=game_jam_id)

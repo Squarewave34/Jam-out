@@ -1,14 +1,19 @@
 {% extends 'base.html' %}  
 {% block content %}
+  <div class="center all_flex">
+    <div class="centered_content">
+      <div>
+        <h2 class="light">Are you sure you want the <span class="purple_text">{{ role.name }}</span> role to be deleted?</h2>
 
-  <h1>Delete role?</h1>
-
-  <h2>Are you sure you want to delete {{ role.name }}?</h2>
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <a href="{% url 'all-roles' role.game_jam_id %}">Cancel</a>
-    <button type="submit">Delete</button>
-  </form>
+        <form class="all_flex" action="" method="post">
+          {% csrf_token %}
+          <div class="purple_tag min_width margin_right">
+            <a class="white_text main_text bigger_text" id="padding_top_bottom" href="{% url 'all-roles' role.game_jam_id %}">Cancel</a>
+          </div>
+          <button type="submit" class="call_to_action margin_left">Yes! Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

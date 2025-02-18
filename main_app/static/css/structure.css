@@ -1,11 +1,15 @@
 /* flex */
-.flex, .flex_space_around, .flex_space_in_between{
+.flex, .flex_space_around, .flex_space_in_between, .all_flex{
   display: flex;
   align-items: center;
 }
 
 .pure_flex{
   display: flex;
+}
+
+.all_flex{
+  justify-content: center;
 }
 
 .inline{
@@ -31,6 +35,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.center{
+  min-height: 80vh;
 }
 
 .image{
@@ -86,11 +94,15 @@
   margin-top: 10px;
 }
 
-
 /* sizes */
 .icon{
   width: 24px;
   height: auto;
+}
+
+.min_width{
+  min-width: 100px;
+  text-align: center;
 }
 
 /* buttons */
