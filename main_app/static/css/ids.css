@@ -51,3 +51,7 @@
 #padding_top_bottom{
   border: 3 solid var(--Main);
 }
+
+#inbox{
+  min-width: 50vw;
+}

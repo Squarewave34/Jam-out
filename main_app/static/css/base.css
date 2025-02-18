@@ -34,6 +34,10 @@
   font-weight: 400;
 }
 
+.bold{
+  font-weight: 800;
+}
+
 .purple_text{
   color: var(--Main);
 }

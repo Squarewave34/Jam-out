@@ -1,18 +1,31 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>{{user}}'s inbox</h1>
-  {% for application in applications %}
-    {%if application.status == 'w'%}
-      <p> new applications in {{application.game_jam}} </p>
-      <a href="{% url 'game-jam-applications' application.game_jam.id%}">view</a>
-    {%endif%}
-  {% endfor %}
-
-  <h1>your applications</h1>
-  {% for application in applied %}
-    {% if application.status != 'w'%}
-      <p>Your application for {{application.game_jam}} has been reviewed</p>
-      <a href="{% url 'result' application.id %}">view</a>
-    {% endif %}
-  {% endfor %}
+  <h2>Inbox</h2>
+  <div class="middle">
+    <div id="inbox">
+      <h2 class="light">Applications to your game jams!</h2>
+      {% for application in applications %}
+        {%if application.status == 'w'%}
+          <div class="flex_space_in_between margin_bottom_small">
+            <p> new applications in <span class="purple_text bold">{{application.game_jam}}</span> </p>
+            <div class="call_to_action">
+              <a class="purple_text" href="{% url 'game-jam-applications' application.game_jam.id%}">view</a>
+            </div>
+          </div>
+        {%endif%}
+      {% endfor %}
+    
+      <h2 class="light">Your applications</h2>
+      {% for application in applied %}
+        {% if application.status != 'w'%}
+          <div class="flex_space_in_between margin_bottom_small">
+            <p>Your application for <span class="purple_text bold">{{application.game_jam}}</span> has been reviewed</p>
+            <div class="call_to_action">
+              <a class="purple_text" href="{% url 'result' application.id %}">view</a>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

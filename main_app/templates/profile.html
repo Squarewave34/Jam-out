@@ -1,9 +1,14 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-  <h1>welcome {{user}}</h1>
-  <a href="{% url 'inbox' %}">inbox</a>
-  <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Log out</button>
-  </form>
+  <h2>@{{user}}</h2>
+  <div class="flex">
+    <div class="flex_column">
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="icon_button" type="submit"><img class='icon' src="{% static 'images/logout.svg' %}" alt="logout" /></button>
+      </form>
+      <a href="{% url 'inbox' %}"><img class='icon' src="{% static 'images/inbox.svg' %}" alt="logout" /></a>
+    </div>
+  </div>
 {% endblock %}

@@ -1,22 +1,37 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>{{game_jam.name}}'s applications</h1>
+<h2><span class="purple_text">{{game_jam.name}}'s</span> applications</h2>
+  <div class="middle">
+    <div id="inbox">
+      <h2 class="light">new applications</h2>
+      {% for application in applications %}
+        {% if application.status == 'w' %}
+          <div class="flex_space_in_between margin_bottom_small">
+            <p>@{{application.user}} applied for the position: <span class="main_text purple_text bigger_text">{{application.role}}</span><p>
+            <div class="flex">
+              <div class="call_to_action margin_right">
+                <a class="purple_text" href="{% url 'approve' application.id %}">Approve</a>
+              </div>
+              <div class="call_to_action margin_left">
+                <a class="purple_text" href="{% url 'deny' application.id %}">Deny</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
 
-  <h2>new applications</h2>
-  {% for application in applications %}
-    {% if application.status == 'w' %}
-      <p>{{application.user}} applied for the position: {{application.role}}<p>
-      <a href="{% url 'approve' application.id %}">approve</a>
-      <a href="{% url 'deny' application.id %}">deny</a>
-    {% endif %}
-  {% endfor %}
-
-  <h2>application list</h2>
-  {% for application in applications %}
-  {% if application.status != 'w' %}
-    <p>{{application.user}} applied for the position: {{application.role}}<p>
-    <p>{{application.get_status_display}}</p>
-  {% endif %}
-{% endfor %}
+      <h2 class="light">application list</h2>
+      {% for application in applications %}
+        {% if application.status != 'w' %}
+          <div class="flex_space_in_between margin_bottom_small">
+            <p>@{{application.user}} applied for the position: <span class="main_text purple_text bigger_text">{{application.role}}</span><p>
+            <div class="{% if application.status == 'd' %}purple_tag{%else%}green_tag_no_margin{% endif %} min_width">
+              <p class="main_text">{{application.get_status_display}}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
 
 {% endblock %}

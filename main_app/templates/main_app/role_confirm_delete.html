@@ -4,7 +4,6 @@
     <div class="centered_content">
       <div>
         <h2 class="light">Are you sure you want the <span class="purple_text">{{ role.name }}</span> role to be deleted?</h2>
-
         <form class="all_flex" action="" method="post">
           {% csrf_token %}
           <div class="purple_tag min_width margin_right">
@@ -15,5 +14,4 @@
       </div>
     </div>
   </div>
-
 {% endblock %}

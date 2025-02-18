@@ -1,5 +1,5 @@
 /* flex */
-.flex, .flex_space_around, .flex_space_in_between, .all_flex{
+.flex, .flex_space_around, .flex_space_in_between, .all_flex, .flex_column{
   display: flex;
   align-items: center;
 }
@@ -23,6 +23,11 @@
 .flex_space_around{
   justify-content: space-around;
 }
+
+.flex_column{
+  flex-direction: column;
+}
+
 /* grid */
 .grid{
   display: grid;
@@ -53,11 +58,14 @@
   padding: 8px;
 }
 
-.green_tag{
+.green_tag, .green_tag_no_margin{
   background: var(--Accent);
   padding: 8px;
-  margin-right: 10px;
   color: var(--Main);
+}
+
+.green_tag{
+  margin-right: 10px;
 }
 
 /* positions */
@@ -125,4 +133,9 @@
 
 .call_to_action:hover a{
   color: var(--Light);
+}
+
+.icon_button{
+  background: none;
+  border: none;
 }
