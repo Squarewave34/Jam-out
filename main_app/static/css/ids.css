@@ -5,3 +5,30 @@
 #sign_up:hover{
   color: var(--Main);
 }
+
+#game_jams_image{
+  width: 35%;
+  height: 300px;
+  background: var(--Dark);
+  margin-right: 20px;
+}
+
+#game_jam_details{
+  width: 60%;
+  height: 100%;
+  position: relative;
+  color: var(--Dark);
+}
+
+#game_jam_details h2{
+  margin-bottom: 5px;
+}
+
+#status{
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+  background-color: var(--Main);
+  color: white;
+  padding: 10px;
+}

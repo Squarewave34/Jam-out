@@ -95,17 +95,18 @@ PARTICIPANTS_STATUS = (
 # Create your models here.
 class Game_jam(models.Model):
   name = models.CharField(max_length=200)
-  hosting = models.CharField(max_length=100)
   description = models.TextField()
-  Game_genre = models.CharField(max_length=100, choices=GENRE, default=GENRE[0][0])
-  application_duration = models.DateField()
-  monetization = models.BooleanField()
-  status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
   technology = models.TextField()
-  # game 
-  # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
+  Game_genre = models.CharField(max_length=100, choices=GENRE, default=GENRE[0][0])
+  hosting = models.CharField(max_length=100)
+  application_duration = models.DateField()
   start_date = models.DateField(default=date.today)
   end_date = models.DateField()
+  monetization = models.BooleanField()
+  images = models.ImageField(blank=True)
+  # game 
+  # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
+  status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
@@ -125,8 +126,8 @@ class Role(models.Model):
 class Dev_log(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
-  images = models.ImageField(blank=True)
   description = models.TextField()
+  images = models.ImageField(blank=True)
   game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
   # links
   user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -136,8 +137,8 @@ class Dev_log(models.Model):
 class Thread(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
-  images = models.ImageField(blank=True)
   description = models.TextField()
+  images = models.ImageField(blank=True)
   # likes
   open = models.BooleanField(default=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)

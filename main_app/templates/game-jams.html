@@ -1,19 +1,22 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Game jams</h1>
-  <a href="{% url 'game-jam-create' %}">create a game jam</a>
-  <br>
-  <br>
-  {% for game_jam in game_jams %}
-    {% comment %} img? {% endcomment %}
-    <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a>
-    <p> @{{game_jam.user}} </p>
-    {% if game_jam.status == 'c' %}
-      <p> completed </p>
-    {% else %}
-      <p> on going </p>
-    {% endif %}
-    <br>
-    <br>
-  {% endfor %}
+  <div class="flex_space_in_between margin_on_sides">
+    <h2>All game jams</h2>
+    <a class="call_to_action" href="{% url 'game-jam-create' %}">create a game jam</a>
+  </div>
+  <div class="grid">
+    {% for game_jam in game_jams %}
+      <a class="flex margin_bottom" href="{% url 'game-jam-details' game_jam.id %}">
+        <div id="game_jams_image">
+        </div>
+        <div id="game_jam_details">
+          <h2>{{game_jam.name}}</h2>
+          <p> @{{game_jam.user}} </p>
+          <div id="status">
+            <p class="main_text"> {{game_jam.get_status_display}}</p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
 {% endblock %}

@@ -16,6 +16,12 @@
   justify-content: space-around;
 }
 
+/* grid */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 /* containers */
 .middle{
   width: 100%;
@@ -24,7 +30,13 @@
   justify-content: center;
 }
 
-/* margins */
+.image{
+  width: 100%;
+  height: 300px;
+  background-color: var(--Dark);
+}
+
+/* positions */
 .margin_on_sides{
   margin-left: 10px;
   margin-right: 10px;
@@ -38,11 +50,16 @@
   margin-left: 10px;
 }
 
+.margin_bottom{
+  margin-bottom: 25px;
+}
+
 /* sizes */
 .icon{
   width: 24px;
   height: auto;
 }
+
 
 /* buttons */
 .call_to_action{
