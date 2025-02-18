@@ -19,3 +19,9 @@
 .margin_right{
   margin-right: 10px;
 }
+
+/* sizes */
+.icon{
+  width: 24px;
+  height: auto;
+}

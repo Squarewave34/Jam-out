@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/ids.css' %}" />
     <link rel="stylesheet" href="{% static 'css/elements.css' %}" />
     <link rel="stylesheet" href="{% static 'css/structure.css' %}" />
     <title>Jam_out!</title>
@@ -14,7 +13,7 @@
     {% endblock %}
   </head>
   <body>
-    <header>
+    <div class="page">
       <nav class="flex_space_in_between">
         <div class="flex">
           <a class="margin_on_sides" href="{% url 'main' %}"><img id='logo' src="{% static 'images/logo.svg' %}" alt="Jam out logo" /></a>
@@ -22,7 +21,7 @@
           <a class="main_text nav_bar_element" href="{% url 'threads' %}">Threads</a>
           <a class="main_text nav_bar_element" href="{% url 'users' %}">Users</a>
         </div>
-
+  
         <div class="flex">
           {% if user.is_authenticated %}
             <a class="main_text nav_bar_element" href="{% url 'profile' %}">profile</a>
@@ -32,10 +31,14 @@
           {% endif %}
         <div>
       </nav>
-    </header>
-    <main>
-      {% block content %} 
-      {% endblock %}
+      <main class="container">
+        {% block content %} 
+        {% endblock %}
       </main>
+      <footer class="footer flex_space_in_between">
+        <p class="sub_text white_text">copyright @2025 Narjis Rozbah corp (to be)</p>
+          <a class="margin_right" href="https://github.com/Squarewave34"><img class="icon" src="{% static 'images/github.svg' %}" alt="link to github" /></a>
+      </footer>
+    </div>
   </body>
 </html>
