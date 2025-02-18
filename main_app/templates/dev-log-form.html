@@ -1,10 +1,15 @@
 {% extends 'base.html' %} 
 {% block content %}
 {% comment %} ref: https://www.geeksforgeeks.org/imagefield-django-forms/ {% endcomment %}
-<form action="{% url 'add-dev-log' game_jam %}" method="post" enctype="multipart/form-data" autocomplete="off">
-  {% csrf_token %}
-  {{ dev_log_form.as_p }}
-  <button type="submit">Submit</button>
-</form>
+  <div class="middle">
+    <div>
+      <h2>Add/Edit a dev log</h2>
+      <form action="{% url 'add-dev-log' game_jam %}" method="post" enctype="multipart/form-data" autocomplete="off">
+        {% csrf_token %}
+        {{ dev_log_form.as_p }}
+        <button type="submit" class="call_to_action">Submit</button>
+      </form>
+    </div>
+  </div>
 
 {% endblock %}

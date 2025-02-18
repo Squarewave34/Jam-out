@@ -47,9 +47,3 @@ p{
 #card_info_thread{
   height: 400px;
 }
-
-.left{
-  position: absolute;
-  bottom: 15px;
-  right: 10px;
-}

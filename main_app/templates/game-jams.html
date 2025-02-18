@@ -2,7 +2,7 @@
 {% block content %}
   <div class="flex_space_in_between margin_on_sides">
     <h2>All game jams</h2>
-    <a class="call_to_action" href="{% url 'game-jam-create' %}">create a game jam</a>
+    <a class="call_to_action" href="{% url 'game-jam-create' %}">Create a game jam</a>
   </div>
   <div class="grid">
     {% for game_jam in game_jams %}

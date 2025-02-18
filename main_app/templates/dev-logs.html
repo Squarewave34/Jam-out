@@ -1,21 +1,39 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>{{game_jam_name.name}} Dev logs</h1>
-  <a href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
-  <br>
-  <br>
+  <div class="flex_space_in_between margin_on_sides">
+    <h2> <span class="purple_text">{{game_jam_name.name}}</span> Dev logs</h2>
+    {%if request_user == game_jam_name.user%}
+      <a class="call_to_action" href="{% url 'show-dev-log-form' game_jam%}">Create a dev log</a>
+    {% else %}
+      <div class="place_holder"></div>
+    {%endif%}
+  </div>
   {% if dev_logs%}
-    {% for dev_log in dev_logs %}
-      {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
-      <h3>{{dev_log.title}}</h3>
-      <p>@{{dev_log.user}}</p>
-      <p>{{dev_log.date}}</p>
-      <a href="{% url 'dev-log-details' game_jam dev_log.id %}">view</a>
-      <br>
-      <br>
-    {% endfor %}
+    <div class="flex_wrap">
+      {% for dev_log in dev_logs %}
+        <div id="dev_log_container" class="purple_text">
+          {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
+          <h3 class="no_margin">{{dev_log.title}}</h3>
+          <p>@{{dev_log.user}}</p>
+          <p>{{dev_log.date}}</p>
+          <div class="left">
+            <a class="call_to_action" href="{% url 'dev-log-details' game_jam dev_log.id %}">view</a>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
   {%else%}
-    <p>no dev logs yet, add some</p>
-    <a href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
+    <div class="center_smaller all_flex">
+      <div class="centered_content">
+        <div class="flex_column">
+          <h2>There are no dev logs</h2>
+          {%if request_user == game_jam_name.user%}
+            <div class="call_to_action">
+              <a class="purple_text" href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   {%endif%}
 {% endblock %}

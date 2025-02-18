@@ -55,3 +55,13 @@
 #inbox{
   min-width: 50vw;
 }
+
+#dev_log_container{
+  background: var(--Light);
+  width: 210px;
+  height: 300px;
+  padding: 15px;
+  margin: 0 30px  25px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.288);
+  position: relative;
+}

@@ -1,14 +1,33 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-  <h1>{{dev_log.title}}</h1>
-  <h3>{{dev_log.date}}</h3>
-  <p> {{dev_log.description}} </p>
-  {% comment %} images {% endcomment %}
-  <a href="{% url 'dev-logs' game_jam_id%}">dev logs</a>
-  {%if dev_log.user == request_user%}
-    <a href="{% url 'dev-log-update' dev_log.id %}">Edit</a>
-    <br>
-    <br>
-    <a href="{% url 'dev-log-delete' dev_log.id %}">Delete</a>
-  {% endif %}
+  <div class="flex margin_top">
+    <a class="call_to_action" href="{% url 'dev-logs' game_jam_id%}">dev logs<img id='arrow' src="{% static 'images/arrow.svg' %}" alt="arrow" /></a>
+  </div>
+  <div class="middle">
+    <div id="inbox">
+      <div class="flex_space_in_between">
+        <h2 class="light">{{dev_log.title}}</h2>
+        <h2 class="light">{{dev_log.date}}</h2>
+      </div>
+      <p> {{dev_log.description}} </p>
+      {% comment %} images {% endcomment %}
+      {%if dev_log.user == request_user%}
+      <div class="flex_space_in_between margin_top">
+        <div id="place_holder"></div>
+          <div class="margin_left" id="edit_and_delete">
+            <div class="flex margin_top_small">
+              <div class="call_to_action min_width margin_right">
+                <a class="purple_text" href="{% url 'dev-log-update' dev_log.id %}">Edit</a>
+              </div>
+              <div class="call_to_action min_width margin_right">
+                <a class="purple_text" href="{% url 'dev-log-delete' dev_log.id %}">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 {% endblock %}

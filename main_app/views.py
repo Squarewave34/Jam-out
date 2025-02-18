@@ -171,12 +171,12 @@ def deny(req, application_id):
 def dev_logs(req, game_jam_id):
   dev_logs = Dev_log.objects.filter(game_jam=game_jam_id)
   game_jam = Game_jam.objects.get(id=game_jam_id)
-  return render(req, 'dev-logs.html' ,{'dev_logs': dev_logs, 'game_jam':game_jam_id, 'game_jam_name':game_jam})
+  return render(req, 'dev-logs.html' ,{'dev_logs': dev_logs, 'game_jam':game_jam_id, 'game_jam_name':game_jam, 'request_user': req.user})
 
 @login_required
 def show_dev_log_form(req, game_jam_id):
   dev_log_form = DevLogForm()
-  return render(req, 'dev-log-form.html', {'dev_log_form': dev_log_form, 'game_jam':game_jam_id})
+  return render(req, 'dev-log-form.html', {'dev_log_form': dev_log_form, 'game_jam':game_jam_id,})
 
 @login_required
 def add_dev_log(req, game_jam_id):

@@ -1,5 +1,5 @@
 /* flex */
-.flex, .flex_space_around, .flex_space_in_between, .all_flex, .flex_column{
+.flex, .flex_space_around, .flex_space_in_between, .all_flex, .flex_column, .flex_wrap{
   display: flex;
   align-items: center;
 }
@@ -28,6 +28,11 @@
   flex-direction: column;
 }
 
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap */
+.flex_wrap{
+  flex-wrap: wrap;
+}
+
 /* grid */
 .grid{
   display: grid;
@@ -44,6 +49,10 @@
 
 .center{
   min-height: 80vh;
+}
+
+.center_smaller{
+  min-height: 60vh;
 }
 
 .image{
@@ -100,6 +109,16 @@
 
 .margin_top_small{
   margin-top: 10px;
+}
+
+.left{
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+}
+
+.relative{
+  position: relative;
 }
 
 /* sizes */

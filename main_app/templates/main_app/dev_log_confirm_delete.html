@@ -1,14 +1,18 @@
 {% extends 'base.html' %}  
 {% block content %}
-
-  <h1>Delete your dev log?</h1>
-
-  <h2>Are you sure you want to delete {{ dev_log.name }}?</h2>
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <a href="{% url 'dev-log-details' dev_log.game_jam.id dev_log.id %}">Cancel</a>
-    <button type="submit">Delete</button>
+  <div class="center all_flex">
+    <div class="centered_content">
+      <div>
+        <h2 class="light">Are you sure you want the <span class="purple_text">{{ dev_log.name }}</span> to be deleted?</h2>
+        <form class="all_flex" action="" method="post">
+          {% csrf_token %}
+          <div class="purple_tag min_width margin_right">
+            <a class="white_text main_text bigger_text" id="padding_top_bottom" href="{% url 'dev-log-details' dev_log.game_jam.id dev_log.id %}">Cancel</a>
+          </div>
+          <button type="submit" class="call_to_action margin_left">Yes! Delete</button>
+        </div>
+      </div>
+    </div>
   </form>
 
 {% endblock %}
