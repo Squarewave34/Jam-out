@@ -114,13 +114,24 @@ class RoleDelete(LoginRequiredMixin, DeleteView):
   def get_success_url(self):
     return reverse('all-roles', kwargs={'game_jam_id': self.object.game_jam_id}
     )
-  
-class RoleUpdate(LoginRequiredMixin, UpdateView):
-  model = Role
-  fields = ['open']
-  def get_success_url(self):
-    return reverse('game-jam-details', kwargs={'game_jam_id': self.object.game_jam_id}
+
+@login_required
+def close_role(req, role_id):
+  role_to_close = Role.objects.get(id=role_id)
+  closed_role, created = Role.objects.update_or_create(
+    id=role_id,
+    defaults={'open' : False}
   )
+  return redirect('game-jam-details', game_jam_id=role_to_close.game_jam.id)
+
+@login_required
+def open_role(req, role_id):
+  role_to_open = Role.objects.get(id=role_id)
+  open_role, created = Role.objects.update_or_create(
+    id=role_id,
+    defaults={'open' : True}
+  )
+  return redirect('game-jam-details', game_jam_id=role_to_open.game_jam.id)
 
 # ref: https://stackoverflow.com/questions/1941212/how-to-use-get-or-create-in-django
 @login_required

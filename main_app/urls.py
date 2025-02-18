@@ -24,7 +24,8 @@ urlpatterns = [
   # roles
   path('roles/<int:game_jam_id>/', views.allRoles, name='all-roles'),
   path('roles/<int:game_jam_id>/add-role/', views.add_role, name='add-role'),
-  path('roles/<int:pk>/update/', views.RoleUpdate.as_view(), name='role-update'),
+  path('roles/<int:role_id>/close/', views.close_role, name='close-role'),
+  path('roles/<int:role_id>/open/', views.open_role, name='open-role'),
   path('roles/<int:pk>/delete/', views.RoleDelete.as_view(), name='role-delete'),
   path('roles/<int:role_id>/apply/', views.apply, name="apply"),
   path('role/<int:application_id>/approve', views.approve, name='approve'),

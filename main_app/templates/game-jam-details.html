@@ -1,66 +1,117 @@
 {% extends 'base.html' %} 
+{% load static %}
+
 {% block content %}
-  <h1>{{game_jam.name}}</h1>
-  <h2> {{game_jam.start_date}} - {{game_jam.end_date}} </h2>
+  <div class="pure_flex">
+    <div class="margin_top margin_left" id="game_jams_image">
+    </div>
+    <div id="take_all_space">
+      <div class"flex_space_in_between" style="display:flex; justify-content:space-between;">
+        <h2 class="inline light no_margin margin_top">{{game_jam.name}}</h2>
+        <h2 class="inline light no_margin margin_top"> {{game_jam.start_date}} - {{game_jam.end_date}} </h2>
+      </div>
+      <p>@{{game_jam.user}}</p>
+      <div class="flex_space_in_between">
+        <div class="flex">
+          <div class="green_tag">
+            {% if monetization %}
+              <p class="main_text">Monetized</p>
+            {% else %}
+              <p class="main_text">Non profit</p>
+            {% endif %}
+          </div>
+          <div class="green_tag">
+            <p class="main_text">{{game_jam.get_status_display}}</p>
+          </div>
+        </div>
+        <a class="call_to_action" href="{% url 'dev-logs' game_jam.id%}">dev logs<img id='arrow' src="{% static 'images/arrow.svg' %}" alt="arrow" /></a>
+      </div>
 
-  {% if monetization %}
-    <p>Monetized</p>
-  {% else %}
-    <p>Non profit</p>
-  {% endif %}
-
-  <a href="{% url 'dev-logs' game_jam.id%}">dev logs</a>
-  <p>communication via: {{game_jam.hosting}} </p>
-  <p>Application submission until: {{game_jam.application_duration}} </p>
-  <p>{{game_jam.description}}</p>
-  <p>{{game_jam.get_Game_genre_display}}</p>
-  <br>
-  <h3>Technology And Specifications:</h3>
-  {{game_jam.technology}}
-  <h3>roles</h3>
-  {% comment %} ref: https://stackoverflow.com/questions/69059272/only-show-edit-button-on-owners-posts-django {% endcomment %}
-    {%if game_jam.user == request_user%}
-      {% for role in game_jam.role_set.all %}
-        <td>{{role.name}}</td>
-        {%if role.open %}
-          <a href={% url 'role-update' role.id%}>close</a>
-        {% else %}
-          <a href={% url 'role-update' role.id%}>closed</a>
+      <p class="main_text margin_top_small">communication via: <span class="purple_text">{{game_jam.hosting}}</span></p>
+      <p class="main_text margin_top_small">Application submission until: <span class="purple_text">{{game_jam.application_duration}}</span></p>
+      
+      <p class="margin_top_small">{{game_jam.description}}</p>
+      <div class="flex">
+        <div class="purple_tag">
+          <p class="main_text">{{game_jam.get_Game_genre_display}}</p>
+        </div>
+      </div>
+      <h3 class="light no_margin margin_top">Technology And Specifications:</h3>
+      <p>{{game_jam.technology}}</p>
+      <h3 class="light no_margin margin_top">Roles</h3>
+      {% comment %} ref: https://stackoverflow.com/questions/69059272/only-show-edit-button-on-owners-posts-django {% endcomment %}
+        {%if game_jam.user == request_user%}
+          {% for role in game_jam.role_set.all %}
+            <div class="flex_space_in_between margin_bottom_small">
+              <p>{{role.name}}</p>
+                {%if role.open %}
+                  <div class="call_to_action">
+                    <a class="purple_text" href={% url 'close-role' role.id%}>close</a>
+                  </div>
+                {% else %}
+                  <div class="purple_tag">
+                    <a class="white_text main_text bigger_text" href={% url 'open-role' role.id%}>closed, reopen?</a>
+                  </div>
+                {% endif %}
+            </div>
+          {% endfor %}
+        {%else%}
+          {% for role in game_jam.role_set.all %}
+            <div class="flex_space_in_between margin_bottom_small">
+              <p>{{role.name}}</p>
+                {%if role.open%}
+                  {%if role.id not in applied_roles%}
+                    <div class="call_to_action">
+                      <a class="purple_text main_text" href="{% url 'apply' role.id%}">Apply</a>
+                    </div>
+                  {% else %}
+                    <div class="purple_tag bigger_text">
+                      <p class="white_text main_text"> you've applied </p>
+                    </div>
+                  {%endif%}
+                {% else %}
+                  <div class="purple_tag bigger_text">
+                    <a class="white_text main_text">closed </a>
+                  </div>
+                {% endif %}
+            </div>
+          {% endfor %}
         {% endif %}
-        <br>
-        <br>
-      {% endfor %}
-    {%else%}
-      {% for role in game_jam.role_set.all %}
-        <td>{{role.name}}</td>
-        {%if role.open%}
-          {%if role.id not in applied_roles%}
-            <a href="{% url 'apply' role.id%}">Apply</a>
-          {% else %}
-            <p> you've applied </p>
+        {%if game_jam.user == request_user%}
+          <div class="flex_space_in_between">
+            <div id="place_holder"></div>
+            <div class="call_to_action">
+              <a class="purple_text" href="{% url 'all-roles' game_jam.id %}">add a role</a>
+            </div>
+          </div>
+        {%endif%}
+  
+        <h3 class="light no_margin margin_top">Participants</h3>
+        {% for participant in participants %}
+          {%if participant.status == 'a' %}
+            <div class="flex_space_in_between">
+              <p>@{{participant.user}}</p>
+              <div class="purple_tag">
+                <p class="main_text" id="min_width">{{participant.role}}</p>
+              </div>
+            </div>
           {%endif%}
-        {% else %}
-          <a>closed</a>
-        {% endif %}
-        <br>
-        <br>
-      {% endfor %}
-    {% endif %}
-
-    <h3>Participants</h3>
-    {% for participant in participants %}
-      {%if participant.status == 'a' %}
-        <p>{{participant.user}}</p>
-        <p>{{participant.role}}</p>
+        {%endfor%}
+    </div>
+  </div>
+  <div class="flex_space_in_between margin_top">
+    <div id="place_holder"></div>
+    <div class="margin_left" id="edit_and_delete">
+      {%if game_jam.user == request_user%}
+        <div class="flex margin_top_small">
+          <div class="call_to_action margin_right">
+            <a class="purple_text" href="{% url 'game-jam-update' game_jam.id %}">Edit</a>
+          </div>
+          <div class="call_to_action">
+            <a class="purple_text" href="{% url 'game-jam-delete' game_jam.id %}">Delete</a>
+          </div>
+        </div>
       {%endif%}
-    {%endfor%}
-
-    {%if game_jam.user == request_user%}
-      <a href="{% url 'all-roles' game_jam.id %}">add a role</a>
-      <br>
-      <a href="{% url 'game-jam-update' game_jam.id %}">Edit</a>
-      <br>
-      <br>
-      <a href="{% url 'game-jam-delete' game_jam.id %}">Delete</a>
-    {%endif%}
+    </div>
+  </div>
 {% endblock %}

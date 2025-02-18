@@ -30,6 +30,22 @@
   color: var(--Light);
 }
 
+.light{
+  font-weight: 400;
+}
+
+.purple_text{
+  color: var(--Main);
+}
+
+.align_right{
+  text-align: right;
+}
+
+.bigger_text{
+  font-size:1.15em;
+}
+
 /* classes for base.html */
 .nav_bar_element{
   font-weight: 400;
@@ -52,8 +68,8 @@
   padding: 0 15px;
 }
 
-.divider{
-  height: 200px;
+#divider{
+  height: 100px;
 }
 
 .footer{
