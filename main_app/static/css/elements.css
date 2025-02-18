@@ -11,3 +11,31 @@ nav{
   background: linear-gradient(90deg, #834ea4 0%, var(--Main) 100%);
   padding: 0px 10px;
 }
+
+
+form{
+  text-align: end;
+}
+
+form label{
+  font-family: "Kelly Slab", serif;
+  font-style: normal;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+form p{
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+form input{
+  min-width: 50vw;
+  min-height: 40px;
+  border: 2px solid var(--Main);
+  font-family: "Lekton", serif;
+  font-style: bold;
+}

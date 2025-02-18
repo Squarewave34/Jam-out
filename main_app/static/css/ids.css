@@ -1,0 +1,7 @@
+#sign_up{
+  font-weight: 800;
+}
+
+#sign_up:hover{
+  color: var(--Main);
+}

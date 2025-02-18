@@ -4,10 +4,21 @@
   align-items: center;
 }
 
+.inline{
+  display: inline;
+}
+
 .flex_space_in_between{
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.middle{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* margins */
@@ -20,8 +31,29 @@
   margin-right: 10px;
 }
 
+.margin_left{
+  margin-left: 10px;
+}
+
 /* sizes */
 .icon{
   width: 24px;
   height: auto;
+}
+
+/* buttons */
+.call_to_action{
+  padding: 7px;
+  min-width: 100px;
+  background: none;
+  border: 2px solid var(--Main);
+  font-family: "Kelly Slab", serif;
+  font-style: normal;
+  color: var(--Main);
+  font-size: 1.15em;
+}
+
+.call_to_action:hover{
+  background: var(--Main);
+  color: var(--Light);
 }

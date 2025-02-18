@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/elements.css' %}" />
     <link rel="stylesheet" href="{% static 'css/structure.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/ids.css' %}" />
     <title>Jam_out!</title>
     {% block head %} 
     {% endblock %}
@@ -35,8 +36,10 @@
         {% block content %} 
         {% endblock %}
       </main>
+      <div class="divider">
+      <div>
       <footer class="footer flex_space_in_between">
-        <p class="sub_text white_text">copyright @2025 Narjis Rozbah corp (to be)</p>
+        <p class="white_text">copyright @2025 Narjis Rozbah corp (to be)</p>
           <a class="margin_right" href="https://github.com/Squarewave34"><img class="icon" src="{% static 'images/github.svg' %}" alt="link to github" /></a>
       </footer>
     </div>
