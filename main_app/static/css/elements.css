@@ -1,0 +1,13 @@
+body{
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+nav{
+  width: 100%;
+  background: linear-gradient(90deg, #834ea4 0%, var(--Main) 100%);
+  padding: 0px 10px;
+}

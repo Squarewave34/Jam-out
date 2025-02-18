@@ -247,7 +247,6 @@ def solution(req, comment_id):
   )
   return redirect('thread-details', thread_id=pick_solution.thread.id)
 
-@login_required
 def users(req):
   return render(req, 'users.html')
 

@@ -7,25 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" href="{% static 'css/ids.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/elements.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/structure.css' %}" />
     <title>Jam_out!</title>
     {% block head %} 
     {% endblock %}
   </head>
   <body>
     <header>
-      <nav>
-        <a href="{% url 'main' %}"><img id='logo' src="{% static 'images/logo.svg' %}" alt="Jam out logo" /></a>
-        <ul>
-          <li><a href="{% url 'game-jams' %}">Game Jams</a></li>
-          <li><a href="{% url 'threads' %}">Threads</a></li>
+      <nav class="flex_space_in_between">
+        <div class="flex">
+          <a class="margin_on_sides" href="{% url 'main' %}"><img id='logo' src="{% static 'images/logo.svg' %}" alt="Jam out logo" /></a>
+          <a class="main_text nav_bar_element" href="{% url 'game-jams' %}">Game Jams</a>
+          <a class="main_text nav_bar_element" href="{% url 'threads' %}">Threads</a>
+          <a class="main_text nav_bar_element" href="{% url 'users' %}">Users</a>
+        </div>
+
+        <div class="flex">
           {% if user.is_authenticated %}
-            <li><a href="{% url 'users' %}">Users</a></li>
-            <li><a href="{% url 'profile' %}">profile</a></li>
+            <a class="main_text nav_bar_element" href="{% url 'profile' %}">profile</a>
           {% else %}
-            <li><a href="{% url 'signup' %}" >Sign up</a></li>
-            <li><a href="{% url 'home' %}">Sign in</a></li>
+            <a class="main_text nav_bar_element" href="{% url 'home' %}">Sign in</a>
+            <a class="main_text nav_bar_element" href="{% url 'signup' %}" >Sign up</a>
           {% endif %}
-        </ul>
+        <div>
       </nav>
     </header>
     <main>

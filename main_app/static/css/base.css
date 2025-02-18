@@ -15,8 +15,24 @@
   --gray: #9F98A4;
 }
 
-.test {
+.main_text{
+  font-family: "Kelly Slab", serif;
+  font-style: normal;
+}
+
+.sub_text{
   font-family: "Lekton", serif;
-  font-weight: 800;
   font-style: bold;
+}
+
+.nav_bar_element{
+  font-weight: 400;
+  color: var(--Light);
+  font-size: 18px;
+  margin: 8px 20px 0;
+  padding: 12px 5px 13px;
+}
+
+.nav_bar_element:hover{
+  border-bottom: 3px solid var(--Accent);
 }

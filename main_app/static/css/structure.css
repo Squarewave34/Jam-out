@@ -1,0 +1,21 @@
+/* flex */
+.flex{
+  display: flex;
+  align-items: center;
+}
+
+.flex_space_in_between{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* margins */
+.margin_on_sides{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.margin_right{
+  margin-right: 10px;
+}
