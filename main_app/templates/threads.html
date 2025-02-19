@@ -1,16 +1,33 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>threads</h1>
-  <a href="{% url 'thread-create' %}">create a thread</a>
+  <div class="flex_space_in_between margin_on_sides">
+    <h2>All threads</h2>
+    <a class="call_to_action" href="{% url 'thread-create' %}">Create a thread</a>
+  </div>
+
   {%if threads %}
-    {% for thread in threads %}
-      <h3>{{thread.title}}</h3>
-      <p>@{{thread.user}}</p>
-      <a href="{% url 'thread-details' thread.id%}">view</a>
-      <br>
-    {% endfor %}
+    <div class="flex_wrap">
+      {% for thread in threads %}
+        <div id="dev_log_container" class="purple_text">
+          <h3 class="no_margin">{{thread.title}}</h3>
+          <p>@{{thread.user}}</p>
+          <div class="left">
+            <a class="call_to_action" href="{% url 'thread-details' thread.id%}">View</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
   {%else%}
-    <p>no threads yet, add some</p>
-    <a href="{% url 'thread-create'%}">create a thread</a>
+  <div class="center_smaller all_flex">
+    <div class="centered_content">
+      <div class="flex_column">
+        <h2>No threads yet</h2>
+        <div class="call_to_action">
+          <a class="purple_text" href="{% url 'thread-create'%}">Create a thread</a>
+        </div>
+      </div>
+    </div>
+  </div>
   {%endif%}
 {% endblock %}

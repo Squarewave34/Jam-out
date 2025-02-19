@@ -17,11 +17,11 @@
           <p>@{{dev_log.user}}</p>
           <p>{{dev_log.date}}</p>
           <div class="left">
-            <a class="call_to_action" href="{% url 'dev-log-details' game_jam dev_log.id %}">view</a>
+            <a class="call_to_action" href="{% url 'dev-log-details' game_jam dev_log.id %}">View</a>
           </div>
         </div>
       {% endfor %}
-      </div>
+    </div>
   {%else%}
     <div class="center_smaller all_flex">
       <div class="centered_content">
@@ -29,7 +29,7 @@
           <h2>There are no dev logs</h2>
           {%if request_user == game_jam_name.user%}
             <div class="call_to_action">
-              <a class="purple_text" href="{% url 'show-dev-log-form' game_jam%}">create a dev log</a>
+              <a class="purple_text" href="{% url 'show-dev-log-form' game_jam%}">Create a dev log</a>
             </div>
           {% endif %}
         </div>

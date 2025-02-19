@@ -1,13 +1,15 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <h1>Add/Edit a Thread</h1>
+  <div class="middle">
+    <div>
+      <h1>Add/Edit a Thread</h1>
 
-<form action="" enctype="multipart/form-data" method="post">
-  {% csrf_token %}
-  <table>
-    {{ form.as_table }}
-  </table>
-  <button type="submit">Submit</button>
-</form>
+      <form action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+          {{ form.as_p }}
+        <button type="submit" class="call_to_action">Submit</button>
+      </form>
+    </div>
+  </div>
 
 {% endblock %}

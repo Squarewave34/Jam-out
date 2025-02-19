@@ -4,19 +4,32 @@
     <h2>All game jams</h2>
     <a class="call_to_action" href="{% url 'game-jam-create' %}">Create a game jam</a>
   </div>
-  <div class="grid">
-    {% for game_jam in game_jams %}
-      <a class="flex margin_bottom" href="{% url 'game-jam-details' game_jam.id %}">
-        <div id="game_jams_image">
-        </div>
-        <div id="game_jam_details">
-          <h2>{{game_jam.name}}</h2>
-          <p> @{{game_jam.user}} </p>
-          <div class="purple_tag" id="status">
-            <p class="main_text"> {{game_jam.get_status_display}}</p>
+  {% if game_jams %}
+    <div class="grid">
+      {% for game_jam in game_jams %}
+        <a class="flex margin_bottom" href="{% url 'game-jam-details' game_jam.id %}">
+          <div id="game_jams_image">
+          </div>
+          <div id="game_jam_details">
+            <h2>{{game_jam.name}}</h2>
+            <p> @{{game_jam.user}} </p>
+            <div class="purple_tag" id="status">
+              <p class="main_text"> {{game_jam.get_status_display}}</p>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+    {%else%}
+      <div class="center_smaller all_flex">
+        <div class="centered_content">
+          <div class="flex_column">
+            <h2>No game jams</h2>
+            <div class="call_to_action">
+              <a class="purple_text" href="{% url 'game-jam-create'%}">Create a game jam</a>
+            </div>
           </div>
         </div>
-      </a>
-    {% endfor %}
-  </div>
+      </div>
+    {%endif%}
 {% endblock %}

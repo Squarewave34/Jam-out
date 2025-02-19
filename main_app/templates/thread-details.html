@@ -1,49 +1,89 @@
 {% extends 'base.html' %} 
+{% load static %}
 {% block content %}
-  <h1>{{thread.title}}</h1>
-  <h3>
-    {% if thread.open %}
-      open
-      <a href="{% url 'close-thread' thread.id %}">close</a>
-    {% else %}
-      closed
+<div class="flex margin_top">
+  <a class="call_to_action" href="{% url 'threads' %}">Threads<img id='arrow' src="{% static 'images/arrow.svg' %}" alt="arrow" /></a>
+</div>
+  <div class="middle">
+    <div class="inbox">
+      <div class="flex_space_in_between">
+        <div>
+          <h2 class="no_margin margin_bottom_small margin_top">{{thread.title}}</h2>
+          <p>@{{thread.user}}</p>
+        </div>
+        <div>
+          {% if thread.open %}
+            <div class="purple_tag min_width">
+              <a class="white_text main_text bigger_text" href="{% url 'close-thread' thread.id %}">Open</a>
+            </div>
+            {% else %}
+            <div class="green_tag_no_margin min_width">
+              <p class="bigger_text purple_text main_text"> Closed </p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      <div id="thread_container">
+        <div class="flex_space_in_between">
+          <div class="place_holder"></div>
+          <h4 class="no_margin">{{thread.date}}</h4>
+        </div>
+        <p>{{thread.description}}</p>
+        {% comment %} images {% endcomment %}
+      </div>
+
+      {% for comment in comments%}
+        {% if comment.solution == True %}
+          <div class="flex_space_in_between margin_top margin_bottom">
+            <div>
+              <p class="bold">@{{comment.user}}</p>
+              <p>{{comment.description}}</p>
+            </div>
+            <div class="green_tag_no_margin min_width">
+              <a class="main_text purple_text bigger_text bold" href="{% url 'solution' comment.id%}">Solution</a>
+            </div>
+          </div>
+        {% endif %}
+      {%endfor%}
+
+      {% for comment in comments %}
+        {% if comment.solution == False %}
+          <div class="flex_space_in_between margin_top margin_bottom">
+            <div>
+              <p class="bold">@{{comment.user}}</p>
+              <p>{{comment.description}}</p>
+            </div>
+            {% if thread.user == request_user and thread.open == True %}
+              <div class="call_to_action min_width">
+                <a class="purple_text" href="{% url 'solution' comment.id %}">pick solution</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+
+      <form action="{% url 'add-comment' thread.id %}" enctype="multipart/form-data" method="post" autocomplete="off">
+        {% csrf_token %} 
+        {{ add_comment.as_p }}
+        <button class="call_to_action" type="submit">Comment</button>
+      </form>
+
+      {%if thread.user == request_user%}
+      <div class="flex_space_in_between margin_top">
+        <div id="place_holder"></div>
+          <div class="margin_left" id="edit_and_delete">
+            <div class="flex margin_top_small">
+              <div class="call_to_action min_width margin_right">
+                <a class="purple_text" href="{% url 'thread-update' thread.id %}">Edit</a>
+              </div>
+              <div class="call_to_action min_width">
+                <a class="purple_text" href="{% url 'thread-delete' thread.id %}">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     {% endif %}
-  </h3>
-  <p>@{{thread.user}}</p>
-  <p>{{thread.date}}</p>
-  <p>{{thread.description}}</p>
-
-  {% comment %} images {% endcomment %}
-
-  {% for comment in comments%}
-    {% if comment.solution == True %}
-      <p>this solution solved the issue</p>
-      <p>@{{comment.user}}</p>
-      <p>{{comment.description}}</p>
-    {% endif %}
-  {%endfor%}
-
-  {% for comment in comments%}
-    {% if comment.solution == False %}
-      <p>@{{comment.user}}</p>
-      <p>{{comment.description}}</p>
-      {%if thread.user == request_user and thread.open == True%}
-        <a href="{% url 'solution' comment.id%}">pick solution</a>
-      {%endif%}
-    {% endif %}
-  {%endfor%}
-
-  <form action="{% url 'add-comment' thread.id %}" enctype="multipart/form-data" method="post" autocomplete="off">
-    {% csrf_token %} 
-    {{ add_comment.as_p }}
-    <button type="submit">Comment</button>
-  </form>
-
-  <a href="{% url 'threads' %}">all threads</a>
-  {%if thread.user == request_user%}
-    <a href="{% url 'thread-update' thread.id %}">Edit</a>
-    <br>
-    <br>
-    <a href="{% url 'thread-delete' thread.id %}">Delete</a>
-  {%endif%}
+  </div>
 {% endblock %}
