@@ -26,6 +26,7 @@
 
 #take_all_space{
   flex-grow: 1;
+  max-width: 500px;
 }
 
 #arrow{
@@ -69,4 +70,8 @@
 #thread_container{
   background: var(--Light);
   padding: 15px;
+}
+
+#width{
+  width: 800px;
 }
