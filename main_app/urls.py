@@ -2,8 +2,6 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-#   path('', views., name=''),
-
 urlpatterns = [
   path('', views.Home.as_view(), name='home'),
   path('main/', views.main, name='main'),

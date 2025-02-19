@@ -12,7 +12,6 @@
     <div class="flex_wrap">
       {% for dev_log in dev_logs %}
         <div id="dev_log_container" class="purple_text">
-          {% comment %} <a href="{% url 'game-jam-details' game_jam.id %}">{{game_jam.name}}</a> {% endcomment %}
           <h3 class="no_margin">{{dev_log.title}}</h3>
           <p>@{{dev_log.user}}</p>
           <p>{{dev_log.date}}</p>

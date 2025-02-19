@@ -42,6 +42,10 @@
   color: var(--Main);
 }
 
+.green_text{
+  color: var(--Accent);
+}
+
 .align_right{
   text-align: right;
 }

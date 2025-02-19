@@ -1,4 +1,10 @@
 {% extends 'base.html' %} 
 {% block content %}
-  <p> your application for the role {{application.role}} has been {{application.get_status_display}} <p>
+<div class="center all_flex">
+  <div class="centered_content">
+    <div>
+      <h2 class="light"> your application for the role {{application.role}} has been <span class="bold {%if application.status == 'd' %}purple_text{%else%}green_text{%endif%}">{{application.get_status_display}}</span></h2>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -2,8 +2,7 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 from django.contrib.auth.models import User
-# refs:
-  # ImageField: https://www.geeksforgeeks.org/imagefield-django-models/
+# refs: ImageField: https://www.geeksforgeeks.org/imagefield-django-models/
 
 GENRE = (
   ('ac', 'Action game'),
@@ -105,7 +104,6 @@ class Game_jam(models.Model):
   monetization = models.BooleanField()
   images = models.ImageField(blank=True)
   # game 
-  # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
   status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -152,6 +150,7 @@ class Thread(models.Model):
 
 class Comment(models.Model):
   description = models.TextField()
+  # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
   date = models.DateField(("Date"), default=date.today)
   # https://stackoverflow.com/questions/7341066/can-i-make-an-admin-field-not-required-in-django-without-creating-a-form
   images = models.ImageField(blank=True)

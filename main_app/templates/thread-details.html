@@ -13,9 +13,13 @@
         </div>
         <div>
           {% if thread.open %}
-            <div class="purple_tag min_width">
-              <a class="white_text main_text bigger_text" href="{% url 'close-thread' thread.id %}">Open</a>
-            </div>
+            {%if request_user == thread.user%}
+              <a class="call_to_action" href="{% url 'close-thread' thread.id %}">Open</a>
+            {%else%}
+              <div class="purple_tag min_width">
+                <p class="white_text main_text bigger_text">Open</p>
+              </div>
+            {% endif %}
             {% else %}
             <div class="green_tag_no_margin min_width">
               <p class="bigger_text purple_text main_text"> Closed </p>
