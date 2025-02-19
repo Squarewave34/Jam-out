@@ -3,7 +3,12 @@
 
 {% block content %}
   <div class="pure_flex">
-    <div class="margin_top margin_left" id="game_jams_image">
+    <div class="margin_top margin_left all_flex" id="game_jams_image">
+        {% if game_jam.images %}
+          <img class="img" src="{{game_jam.images.url}}" alt="image provided by user"/>
+        {% else %}
+          <img class="img" src="{% static 'images/place_holder.jpg' %}" alt="image provided by user"/>
+        {% endif %}
     </div>
     <div id="take_all_space">
       <div class"flex_space_in_between" style="display:flex; justify-content:space-between;">

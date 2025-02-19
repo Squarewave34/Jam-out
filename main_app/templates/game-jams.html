@@ -1,4 +1,6 @@
 {% extends 'base.html' %} 
+{% load static %}
+
 {% block content %}
   <div class="flex_space_in_between margin_on_sides">
     <h2>All game jams</h2>
@@ -8,7 +10,12 @@
     <div class="grid">
       {% for game_jam in game_jams %}
         <a class="flex margin_bottom" href="{% url 'game-jam-details' game_jam.id %}">
-          <div id="game_jams_image">
+          <div class="all_flex" id="game_jams_image">
+            {% if game_jam.images %}
+              <img class="img" src="{{game_jam.images.url}}" alt="image provided by user"/>
+            {% else %}
+              <img class="img" src="{% static 'images/place_holder.jpg' %}" alt="image provided by user"/>
+            {% endif %}
           </div>
           <div id="game_jam_details">
             <h2>{{game_jam.name}}</h2>

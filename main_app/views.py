@@ -68,8 +68,8 @@ def game_jam_details(req, game_jam_id):
 
 class GameJamCreate(LoginRequiredMixin, CreateView):
   model = Game_jam
-  fields = ['name', 'hosting', 'description', 'Game_genre', 'application_duration', 'monetization',
-            'technology', 'start_date', 'end_date']
+  fields = ['name', 'description', 'Game_genre', 'start_date', 'end_date', 'application_duration', 'hosting',
+            'technology', 'images','monetization']
   
   def get_form(self, form_class=None):
     form = super(GameJamCreate, self).get_form(form_class)

@@ -33,7 +33,11 @@
           <h4 class="no_margin">{{thread.date}}</h4>
         </div>
         <p>{{thread.description}}</p>
-        {% comment %} images {% endcomment %}
+        <div class="margin_top margin_left all_flex" id="game_jams_image">
+          {% if thread.images %}
+            <img class="img" src="{{thread.images.url}}" alt="image provided by user"/>
+          {% endif %}
+        </div>
       </div>
 
       {% for comment in comments%}

@@ -14,4 +14,4 @@ class DevLogForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
   class Meta:
     model = Comment
-    fields= ['description', 'images']
+    fields= ['description']

@@ -14,7 +14,12 @@
         <div class="flex_space_around">
           {% for game_jam in ongoing|slice:":3" %}
             <div class="card">
-              <div class="image">
+              <div class="image all_flex">
+                {% if game_jam.images %}
+                  <img class="img" src="{{game_jam.images.url}}" alt="image provided by user"/>
+                {% else %}
+                  <img class="img" src="{% static 'images/place_holder.jpg' %}" alt="image provided by user"/>
+                {% endif %}
               </div>
               <div class="card_info">
                 <p class="main_text">{{game_jam.name}}</p>
@@ -39,7 +44,12 @@
         <div class="flex_space_around">
           {% for game_jam in completed|slice:":3" %}
             <div class="card">
-              <div class="image">
+              <div class="image all_flex">
+                {% if game_jam.images %}
+                  <img class="img" src="{{game_jam.images.url}}" alt="image provided by user"/>
+                {% else %}
+                  <img class="img" src="{% static 'images/place_holder.jpg' %}" alt="image provided by user"/>
+                {% endif %}
               </div>
               <div class="card_info">
                 <p class="main_text">{{game_jam.name}}</p>

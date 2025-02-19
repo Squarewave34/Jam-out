@@ -102,8 +102,7 @@ class Game_jam(models.Model):
   start_date = models.DateField(default=date.today)
   end_date = models.DateField()
   monetization = models.BooleanField()
-  images = models.ImageField(blank=True)
-  # game 
+  images = models.ImageField(blank=True, upload_to='uploads/')
   status = models.CharField(max_length=1, choices=STATUS, default=STATUS[0][0])
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -125,9 +124,8 @@ class Dev_log(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
   description = models.TextField()
-  images = models.ImageField(blank=True)
+  images = models.ImageField(blank=True, upload_to='uploads/')
   game_jam = models.ForeignKey(Game_jam, on_delete=models.CASCADE)
-  # links
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   def __str__(self):
     return self.title
@@ -136,8 +134,7 @@ class Thread(models.Model):
   title = models.CharField(max_length=200)
   date = models.DateField(("Date"), default=date.today)
   description = models.TextField()
-  images = models.ImageField(blank=True)
-  # likes
+  images = models.ImageField(blank=True, upload_to='uploads/')
   open = models.BooleanField(default=True)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -153,8 +150,6 @@ class Comment(models.Model):
   # ref: https://stackoverflow.com/questions/2029295/django-datefield-default-options
   date = models.DateField(("Date"), default=date.today)
   # https://stackoverflow.com/questions/7341066/can-i-make-an-admin-field-not-required-in-django-without-creating-a-form
-  images = models.ImageField(blank=True)
-  likes = models.IntegerField(default=0)
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   solution = models.BooleanField(default=False)
   thread = models.ForeignKey(Thread, on_delete=models.CASCADE)

@@ -11,7 +11,13 @@
         <h2 class="light">{{dev_log.date}}</h2>
       </div>
       <p> {{dev_log.description}} </p>
-      {% comment %} images {% endcomment %}
+      <div class="margin_top margin_left all_flex" id="game_jams_image">
+        {% if dev_log.images %}
+          <img class="img" src="{{dev_log.images.url}}" alt="image provided by user"/>
+        {% else %}
+          <img class="img" src="{% static 'images/place_holder.jpg' %}" alt="image provided by user"/>
+        {% endif %}
+      </div>
       {%if dev_log.user == request_user%}
         <div class="flex_space_in_between margin_top">
           <div id="place_holder"></div>
