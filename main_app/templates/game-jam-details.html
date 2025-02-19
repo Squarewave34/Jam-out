@@ -94,7 +94,7 @@
         <h3 class="light no_margin margin_top">Participants</h3>
         {% for participant in participants %}
           {%if participant.status == 'a' %}
-            <div class="flex_space_in_between">
+            <div class="flex_space_in_between margin_top_small">
               <p>@{{participant.user}}</p>
               <div class="purple_tag">
                 <p class="main_text min_width">{{participant.role}}</p>

@@ -70,6 +70,8 @@
 #thread_container{
   background: var(--Light);
   padding: 15px;
+  width: 800px;
+
 }
 
 #width{
